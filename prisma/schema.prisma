@@ -13,4 +13,30 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Therapy {
+  id           String       @id @default(uuid())
+  name         String
+  therapyPlace String
+  Lisans       String
+  YuksekLisans String?
+  TerapiEgtim  String?
+  Summery      String
+  therapyTypes TherapyTypeTherapy[]
+}
+
+model TherapyType {
+  id      String  @id @default(uuid())
+  name    String
+  therapies TherapyTypeTherapy[]
+}
+
+model TherapyTypeTherapy {
+  id        String   @id @default(uuid())
+  therapy   Therapy  @relation(fields: [therapyId], references: [id])
+  therapyId String
+  therapyType   TherapyType  @relation(fields: [therapyTypeId], references: [id])
+  therapyTypeId String
+
+  @@unique([therapyId, therapyTypeId])
+}
 

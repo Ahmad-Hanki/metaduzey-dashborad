@@ -17,6 +17,11 @@ const Links = () => {
   const pathname = usePathname();
   const Links = [
     {
+      name: "Terapi",
+      href: "/therapyType",
+      active: pathname.includes("/therapyType"),
+    },
+    {
       name: "Ekibimiz",
       href: "/ekibimiz",
       active: pathname.includes("/ekibimiz"),
@@ -39,7 +44,6 @@ const Links = () => {
           </Link>
         ))}
       </div>
-
 
       <div className="block xl:hidden">
         <DropdownMenu>
