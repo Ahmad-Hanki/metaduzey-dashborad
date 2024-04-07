@@ -5,17 +5,17 @@ import SubmitButton from "@/components/SubmitButton";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { TherapyType } from "@prisma/client";
-interface TherapyTypeFormProps {
-  data?: TherapyType;
+import { TherapyUnvan } from "@prisma/client";
+interface TherapyUnvanFormProps {
+  data?: TherapyUnvan;
 }
-const TherapyTypeForm = async ({ data }: TherapyTypeFormProps) => {
+const TherapyUnvanForm = async ({ data }: TherapyUnvanFormProps) => {
   const router = useRouter();
   const onAction = async (formData: FormData) => {
     const name = formData.get("name");
     if (!name || name.toString().length == 0) return;
     if (!data) {
-      const res = await axios.post("/api/therapyType", { name });
+      const res = await axios.post("/api/therapyUnvan", { name });
       const status = res.status;
       if (status != 200) {
         const message = await res.data.err;
@@ -23,10 +23,10 @@ const TherapyTypeForm = async ({ data }: TherapyTypeFormProps) => {
       } else {
         toast.success("terapi eklendi");
         router.refresh();
-        router.push("/therapyType");
+        router.push("/therapyUnvan");
       }
     } else {
-      const res = await axios.patch(`/api/therapyType/${data.id}`, { name });
+      const res = await axios.patch(`/api/therapyUnvan/${data.id}`, { name });
       const status = res.status;
       if (status != 200) {
         const message = await res.data.err;
@@ -34,7 +34,7 @@ const TherapyTypeForm = async ({ data }: TherapyTypeFormProps) => {
       } else {
         toast.success("terapi duzenlendi");
         router.refresh();
-        router.push("/therapyType");
+        router.push("/therapyUnvan");
       }
     }
   };
@@ -47,7 +47,7 @@ const TherapyTypeForm = async ({ data }: TherapyTypeFormProps) => {
           className="flex flex-col gap-4 items-center w-full"
         >
           <div className="flex-col flex gap-4 w-full justify-center items-center ">
-            <label htmlFor="name">Terapi Tür</label>
+            <label htmlFor="name">Terapi Unvan</label>
             <input
               className="bg-slate-400 w-52 h-10 md:w-60 xl:w-80 p-4"
               type="text"
@@ -66,4 +66,4 @@ const TherapyTypeForm = async ({ data }: TherapyTypeFormProps) => {
   );
 };
 
-export default TherapyTypeForm;
+export default TherapyUnvanForm;

@@ -1,23 +1,18 @@
 import Container from "@/components/Container";
 import Link from "next/link";
 import { DataTable } from "./components/table/DataTable";
+import { columns } from "./components/table/therapyTypeColumns";
 import prisma from "@/db/client";
-import { columns } from "./components/table/EkibimizColumns";
-
-const TherapyTypePage = async () => {
-  const data = await prisma.therapy.findMany({
-    select : {
-      name:true,
-      therapyPlace:true,
-      id:true
-    }
+const TherapyPlacePage = async () => {
+  const data = await prisma.therapyPlace.findMany({
+    
   });
   return (
     <div>
       <Container>
         <div className="flex flex-col items-center gap-5">
           <div className="w-full flex justify-end">
-            <Link className="btn" href={"/ekibimiz/create"}>
+            <Link className="btn" href={"/therapyPlace/create"}>
               Create
             </Link>
           </div>
@@ -28,4 +23,4 @@ const TherapyTypePage = async () => {
   );
 };
 
-export default TherapyTypePage;
+export default TherapyPlacePage;

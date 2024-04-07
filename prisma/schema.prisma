@@ -14,28 +14,59 @@ datasource db {
 }
 
 model Therapy {
-  id           String       @id @default(uuid())
+  id           String @id @default(uuid())
   name         String
   therapyPlace String
-  Lisans       String
-  YuksekLisans String?
-  TerapiEgtim  String?
-  Summery      String
-  therapyTypes TherapyTypeTherapy[]
+
+  egitim        String?
+  Lisans        String?
+  YuksekLisans  String?
+  TerapiEgtim   String?
+  Uzman         String?
+  Summery       String
+  therapyTypes  TherapyTypeTherapy[]
+  TherapyPlaces TherapyPlaceTherapy[]
+  TherapyUnvans TherapyUnvanTherapy[]
 }
 
 model TherapyType {
-  id      String  @id @default(uuid())
-  name    String
+  id        String               @id @default(uuid())
+  name      String
   therapies TherapyTypeTherapy[]
 }
 
 model TherapyTypeTherapy {
-  id        String   @id @default(uuid())
-  therapy   Therapy  @relation(fields: [therapyId], references: [id], onDelete: Cascade)
-  therapyId String
-  therapyType   TherapyType  @relation(fields: [therapyTypeId], references: [id], onDelete: Cascade)
+  id            String      @id @default(uuid())
+  therapy       Therapy     @relation(fields: [therapyId], references: [id], onDelete: Cascade)
+  therapyId     String
+  therapyType   TherapyType @relation(fields: [therapyTypeId], references: [id], onDelete: Cascade)
   therapyTypeId String
-
 }
 
+model TherapyPlace {
+  id        String                @id @default(uuid())
+  name      String
+  therapies TherapyPlaceTherapy[]
+}
+
+model TherapyPlaceTherapy {
+  id             String       @id @default(uuid())
+  therapy        Therapy      @relation(fields: [therapyId], references: [id], onDelete: Cascade)
+  therapyId      String
+  therapyPlace   TherapyPlace @relation(fields: [therapyPlaceId], references: [id], onDelete: Cascade)
+  therapyPlaceId String
+}
+
+model TherapyUnvan {
+  id        String                @id @default(uuid())
+  name      String
+  therapies TherapyUnvanTherapy[]
+}
+
+model TherapyUnvanTherapy {
+  id             String       @id @default(uuid())
+  therapy        Therapy      @relation(fields: [therapyId], references: [id], onDelete: Cascade)
+  therapyId      String
+  therapyUnvan   TherapyUnvan @relation(fields: [therapyUnvanId], references: [id], onDelete: Cascade)
+  therapyUnvanId String
+}

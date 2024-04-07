@@ -17,9 +17,19 @@ const Links = () => {
   const pathname = usePathname();
   const Links = [
     {
-      name: "Terapi Tur",
+      name: "Tür",
       href: "/therapyType",
       active: pathname.includes("/therapyType"),
+    },
+    {
+      name: "Yer",
+      href: "/therapyPlace",
+      active: pathname.includes("/therapyPlace"),
+    },
+    {
+      name: "Unvan",
+      href: "/therapyUnvan",
+      active: pathname.includes("/therapyUnvan"),
     },
     {
       name: "Ekibimiz",
