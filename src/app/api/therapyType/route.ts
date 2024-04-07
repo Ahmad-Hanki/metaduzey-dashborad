@@ -2,6 +2,7 @@ import prisma from "@/db/client";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { NextResponse } from "next/server";
 
+
 export async function POST(req: Request) {
   const { isAuthenticated } = getKindeServerSession();
   const auth = await isAuthenticated();
@@ -17,7 +18,7 @@ export async function POST(req: Request) {
   }
 
   try {
-    prisma.therapyType.create({
+    await prisma.therapyType.create({
       data: {
         name,
       },
@@ -27,3 +28,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ message: err }, { status: 500 });
   }
 }
+
+
+

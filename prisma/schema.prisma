@@ -32,11 +32,10 @@ model TherapyType {
 
 model TherapyTypeTherapy {
   id        String   @id @default(uuid())
-  therapy   Therapy  @relation(fields: [therapyId], references: [id])
+  therapy   Therapy  @relation(fields: [therapyId], references: [id], onDelete: Cascade)
   therapyId String
-  therapyType   TherapyType  @relation(fields: [therapyTypeId], references: [id])
+  therapyType   TherapyType  @relation(fields: [therapyTypeId], references: [id], onDelete: Cascade)
   therapyTypeId String
 
-  @@unique([therapyId, therapyTypeId])
 }
 

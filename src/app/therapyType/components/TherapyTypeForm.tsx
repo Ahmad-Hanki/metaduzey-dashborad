@@ -5,21 +5,37 @@ import SubmitButton from "@/components/SubmitButton";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-const TherapyTypeForm = async () => {
+import { TherapyType } from "@prisma/client";
+interface TherapyTypeFormProps {
+  data?: TherapyType;
+}
+const TherapyTypeForm = async ({ data }: TherapyTypeFormProps) => {
   const router = useRouter();
   const onAction = async (formData: FormData) => {
     const name = formData.get("name");
     if (!name || name.toString().length == 0) return;
-
-    const res = await axios.post("/api/submit-therapy-type", { name });
-    const status = res.status;
-    if (status != 200) {
-      const message = await res.data.err;
-      toast.error(message);
+    if (!data) {
+      const res = await axios.post("/api/therapyType", { name });
+      const status = res.status;
+      if (status != 200) {
+        const message = await res.data.err;
+        toast.error(message);
+      } else {
+        toast.success("terapi eklendi");
+        router.refresh();
+        router.push("/therapyType");
+      }
     } else {
-      toast.success("terapi eklendi");
-      router.refresh();
-      router.push("/therapyType");
+      const res = await axios.patch(`/api/therapyType/${data.id}`, { name });
+      const status = res.status;
+      if (status != 200) {
+        const message = await res.data.err;
+        toast.error(message);
+      } else {
+        toast.success("terapi duzenlendi");
+        router.refresh();
+        router.push("/therapyType");
+      }
     }
   };
 
@@ -37,6 +53,7 @@ const TherapyTypeForm = async () => {
               type="text"
               name="name"
               required
+              defaultValue={data?.name}
             />
           </div>
 
