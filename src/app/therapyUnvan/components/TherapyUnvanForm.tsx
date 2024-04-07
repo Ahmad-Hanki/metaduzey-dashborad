@@ -9,7 +9,7 @@ import { TherapyUnvan } from "@prisma/client";
 interface TherapyUnvanFormProps {
   data?: TherapyUnvan;
 }
-const TherapyUnvanForm = async ({ data }: TherapyUnvanFormProps) => {
+const TherapyUnvanForm =  ({ data }: TherapyUnvanFormProps) => {
   const router = useRouter();
   const onAction = async (formData: FormData) => {
     const name = formData.get("name");

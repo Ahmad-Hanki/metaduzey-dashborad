@@ -9,7 +9,7 @@ import { TherapyType } from "@prisma/client";
 interface EkibibmizFormProps {
   data?: TherapyType;
 }
-const EkibibmizForm = async ({ data }: EkibibmizFormProps) => {
+const EkibibmizForm = ({ data }: EkibibmizFormProps) => {
   const router = useRouter();
   const onAction = async (formData: FormData) => {
     const name = formData.get("name");

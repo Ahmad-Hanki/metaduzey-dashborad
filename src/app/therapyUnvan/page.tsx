@@ -5,7 +5,7 @@ import { columns } from "./components/table/therapyUnvanColumns";
 import prisma from "@/db/client";
 
 const TherapyTypePage = async () => {
-  const data = await prisma.therapyUnvan.findMany({});
+  const data = await prisma.therapyUnvan.findMany();
 
   return (
     <div>

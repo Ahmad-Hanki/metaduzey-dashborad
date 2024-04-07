@@ -9,7 +9,7 @@ import { TherapyPlace } from "@prisma/client";
 interface TherapyPlaceFormProps {
   data?: TherapyPlace;
 }
-const TherapyPlaceForm = async ({ data }: TherapyPlaceFormProps) => {
+const TherapyPlaceForm = ({ data }: TherapyPlaceFormProps) => {
   const router = useRouter();
   const onAction = async (formData: FormData) => {
     const name = formData.get("name");
