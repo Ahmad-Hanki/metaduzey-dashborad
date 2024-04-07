@@ -4,23 +4,26 @@ import { DataTable } from "./components/table/DataTable";
 import { columns } from "./components/table/therapyTypeColumns";
 import prisma from "@/db/client";
 const TherapyTypePage = async () => {
-  const data = await prisma.therapyType.findMany({
-    
-  });
-  return (
-    <div>
-      <Container>
-        <div className="flex flex-col items-center gap-5">
-          <div className="w-full flex justify-end">
-            <Link className="btn" href={"/therapyType/create"}>
-              Create
-            </Link>
+  try {
+    const data = await prisma.therapyType.findMany({});
+
+    return (
+      <div>
+        <Container>
+          <div className="flex flex-col items-center gap-5">
+            <div className="w-full flex justify-end">
+              <Link className="btn" href={"/therapyType/create"}>
+                Create
+              </Link>
+            </div>
+            <DataTable columns={columns} data={data} />
           </div>
-          <DataTable columns={columns} data={data} />
-        </div>
-      </Container>
-    </div>
-  );
+        </Container>
+      </div>
+    );
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export default TherapyTypePage;

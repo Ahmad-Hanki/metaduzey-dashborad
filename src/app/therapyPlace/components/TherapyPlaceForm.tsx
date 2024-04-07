@@ -6,6 +6,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { TherapyPlace } from "@prisma/client";
+
 interface TherapyPlaceFormProps {
   data?: TherapyPlace;
 }
@@ -22,7 +23,6 @@ const TherapyPlaceForm = ({ data }: TherapyPlaceFormProps) => {
         toast.error(message);
       } else {
         toast.success("terapi eklendi");
-        router.refresh();
         router.push("/therapyPlace");
       }
     } else {
@@ -33,7 +33,6 @@ const TherapyPlaceForm = ({ data }: TherapyPlaceFormProps) => {
         toast.error(message);
       } else {
         toast.success("terapi duzenlendi");
-        router.refresh();
         router.push("/therapyPlace");
       }
     }

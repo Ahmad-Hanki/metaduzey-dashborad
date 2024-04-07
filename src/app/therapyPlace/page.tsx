@@ -3,8 +3,10 @@ import Link from "next/link";
 import { DataTable } from "./components/table/DataTable";
 import { columns } from "./components/table/therapyTypeColumns";
 import prisma from "@/db/client";
+
 const TherapyPlacePage = async () => {
-  const data = await prisma.therapyPlace.findMany();
+  const data = await prisma.therapyPlace.findMany({});
+
   return (
     <div>
       <Container>
