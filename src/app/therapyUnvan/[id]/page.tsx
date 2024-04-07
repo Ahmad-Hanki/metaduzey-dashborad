@@ -1,5 +1,5 @@
 import prisma from "@/db/client";
-import TherapyUnvanForm from "../components/TherapyUnvanForm";
+import TherapyUnvanForm from "../_components/TherapyUnvanForm"; 
 import { redirect } from "next/navigation";
 
 interface EditTherapyUnvanPageProps {

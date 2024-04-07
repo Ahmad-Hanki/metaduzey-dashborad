@@ -1,6 +1,6 @@
 import prisma from "@/db/client";
 import { redirect } from "next/navigation";
-import TherapyPlaceForm from "../components/TherapyPlaceForm";
+import TherapyPlaceForm from "../_components/TherapyPlaceForm";
 
 interface  EditTherapyTypePageProps {
     params:{

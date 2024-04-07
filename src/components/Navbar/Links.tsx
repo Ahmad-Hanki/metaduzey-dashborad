@@ -32,9 +32,9 @@ const Links = () => {
       active: pathname.includes("/therapyUnvan"),
     },
     {
-      name: "Ekibimiz",
-      href: "/ekibimiz",
-      active: pathname.includes("/ekibimiz"),
+      name: "ekib",
+      href: "/ekib",
+      active: pathname.includes("/ekib"),
     },
   ];
 

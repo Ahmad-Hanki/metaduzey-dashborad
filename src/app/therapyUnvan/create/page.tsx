@@ -1,11 +1,11 @@
-import TherapyUnvanForm from "../components/TherapyUnvanForm"
+import TherapyUnvanForm from "../_components/TherapyUnvanForm";
 
 const page = () => {
   return (
     <div>
-        <TherapyUnvanForm/>
+      <TherapyUnvanForm />
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default page;

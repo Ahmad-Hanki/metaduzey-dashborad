@@ -16,16 +16,18 @@ datasource db {
 model Therapy {
   id           String @id @default(uuid())
   name         String
-  therapyPlace String
 
   egitim        String?
   Lisans        String?
   YuksekLisans  String?
   TerapiEgtim   String?
-  Uzman         String?
+  UzmanAlan         String?
+  
   Summery       String
-  therapyTypes  TherapyTypeTherapy[]
-  TherapyPlaces TherapyPlaceTherapy[]
+  imageUrl      String
+
+  therapyTypes  TherapyTypeTherapy[] // cocuk  // category
+  TherapyPlaces TherapyPlaceTherapy[] 
   TherapyUnvans TherapyUnvanTherapy[]
 }
 

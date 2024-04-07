@@ -1,5 +1,5 @@
 import prisma from "@/db/client";
-import TherapyTypeForm from "../components/TherapyTypeForm";
+import TherapyTypeForm from "../_components/TherapyTypeForm";
 import { redirect } from "next/navigation";
 
 interface  EditTherapyTypePageProps {

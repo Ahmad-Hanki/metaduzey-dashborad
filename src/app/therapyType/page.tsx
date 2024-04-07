@@ -1,7 +1,7 @@
 import Container from "@/components/Container";
 import Link from "next/link";
-import { DataTable } from "./components/table/DataTable";
-import { columns } from "./components/table/therapyTypeColumns";
+import { DataTable } from "./_components/table/DataTable"; 
+import { columns } from "./_components/table/therapyTypeColumns"; 
 import prisma from "@/db/client";
 const TherapyTypePage = async () => {
   try {

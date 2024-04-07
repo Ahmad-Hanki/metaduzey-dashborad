@@ -1,4 +1,4 @@
-import TherapyPlaceForm from "../components/TherapyPlaceForm"
+import TherapyPlaceForm from "../_components/TherapyPlaceForm"
 
 const CreatePage = () => {
   return (

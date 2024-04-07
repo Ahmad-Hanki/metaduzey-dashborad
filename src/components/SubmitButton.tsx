@@ -7,7 +7,7 @@ const SubmitButton = () => {
     <button
     type="submit"
       disabled={pending}
-      className={cn("btn", pending ? "cursor-not-allowed" : "")}
+      className={cn("btn w-36", pending ? "cursor-not-allowed" : "")}
     >
       {pending ? "Submitting..." : "Submit"}
     </button>
