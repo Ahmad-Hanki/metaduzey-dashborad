@@ -1,7 +1,9 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { useFormStatus } from "react-dom";
-const SubmitButton = () => {
+
+
+const SubmitButton = ({submit ='Submit', submitting ='Submitting...'}: {submit?:string, submitting?:string}) => {
   const { pending } = useFormStatus();
   return (
     <button
@@ -9,7 +11,7 @@ const SubmitButton = () => {
       disabled={pending}
       className={cn("btn w-36", pending ? "cursor-not-allowed" : "")}
     >
-      {pending ? "Submitting..." : "Submit"}
+      {pending ? submitting : submit}
     </button>
   );
 };

@@ -22,7 +22,7 @@ const EditTherapyPage = async ({ params }: EditTherapyPageProps) => {
   if (!data) redirect("/therapy");
   return (
     <div>
-      <TherapyForm data={data} therapyType={therapyTypes} therapyPlace={therapyPlace} TherapyUnvans={therapyUnvan}/>
+      <TherapyForm initialData={data} therapyType={therapyTypes} therapyPlace={therapyPlace} TherapyUnvans={therapyUnvan}/>
     </div>
   );
 };

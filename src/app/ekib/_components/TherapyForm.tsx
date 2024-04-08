@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ChangeEvent, useState } from "react";
 interface TherapyFormProps {
-  data?: Therapy;
+  initialData?: Therapy;
   therapyType: TherapyType[];
   therapyPlace: TherapyPlace[];
   TherapyUnvans: TherapyUnvan[];
@@ -31,7 +31,7 @@ interface CheckedTherapy {
 }
 
 const TherapyForm = ({
-  data,
+  initialData,
   therapyType,
   TherapyUnvans,
   therapyPlace,
@@ -46,6 +46,13 @@ const TherapyForm = ({
     CheckedTherapy[]
   >([]);
 
+  const [checkedTherapyTypeValidation, setCheckedTherapyTypeValidation] =
+    useState(false);
+  const [checkedTherapyPlaceValidation, setCheckedTherapyPlaceValidation] =
+    useState(false);
+  const [checkedTherapyUnvanValidation, setCheckedTherapyUnvanValidation] =
+    useState(false);
+
   const router = useRouter();
 
   const handleTypeCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -55,6 +62,7 @@ const TherapyForm = ({
         ...prevTherapies,
         { id: id, name: name },
       ]);
+      setCheckedTherapyTypeValidation(false);
     } else {
       setCheckedTherapyType((prevTherapies) =>
         prevTherapies.filter((therapy) => therapy.id !== id)
@@ -69,6 +77,7 @@ const TherapyForm = ({
         ...prevTherapies,
         { id: id, name: name },
       ]);
+      setCheckedTherapyPlaceValidation(false);
     } else {
       setCheckedTherapyPlace((prevTherapies) =>
         prevTherapies.filter((therapy) => therapy.id !== id)
@@ -83,6 +92,7 @@ const TherapyForm = ({
         ...prevTherapies,
         { id: id, name: name },
       ]);
+      setCheckedTherapyUnvanValidation(false);
     } else {
       setCheckedTherapyUnvan((prevTherapies) =>
         prevTherapies.filter((therapy) => therapy.id !== id)
@@ -91,35 +101,77 @@ const TherapyForm = ({
   };
 
   const onAction = async (formData: FormData) => {
-    // const name = formData.get("name");
-    // if (!name || name.toString().length == 0) return;
-    // if (!data) {
-    //   const res = await axios.post("/api/ekib", { name });
-    //   const status = res.status;
-    //   if (status != 200) {
-    //     const message = await res.data.err;
-    //     toast.error(message);
-    //   } else {
-    //     toast.success("terapi eklendi");
-    //     router.refresh();
-    //     router.push("/ekib");
-    //   }
-    // } else {
-    //   const res = await axios.patch(`/api/ekib/${data.id}`, { name });
-    //   const status = res.status;
-    //   if (status != 200) {
-    //     const message = await res.data.err;
-    //     toast.error(message);
-    //   } else {
-    //     toast.success("terapi duzenlendi");
-    //     router.refresh();
-    //     router.push("/ekib");
-    //   }
-    // }
+    if (
+      checkedTherapyType.length < 1 ||
+      checkedTherapyPlace.length < 1 ||
+      checkedTherapyUnvan.length < 1
+    ) {
+      if (checkedTherapyType.length < 1) {
+        setCheckedTherapyTypeValidation(true);
+      }
+      if (checkedTherapyPlace.length < 1) {
+        setCheckedTherapyPlaceValidation(true);
+      }
+      if (checkedTherapyUnvan.length < 1) {
+        setCheckedTherapyUnvanValidation(true);
+      }
+      return null;
+    }
+    const name = formData.get("name");
+    const egitim = formData.get("egitim");
+    const lisans = formData.get("lisans");
+    const yuksekLisans = formData.get("yuksekLisans");
+    const terapiEgtim = formData.get("terapiEgtim");
+    const uzmanAlan = formData.get("uzmanAlan");
+    const summery = formData.get("summery");
 
-    console.log(checkedTherapyType);
-    console.log(checkedTherapyPlace);
-    console.log(checkedTherapyUnvan);
+    if (!name || name.toString().length == 0) {
+      toast.error("Name is Required");
+      return;
+    }
+    if (!summery || summery.toString().length == 0) {
+      toast.error("Summary is Required");
+      return;
+    }
+
+    const data = {
+      name,
+      egitim,
+      lisans,
+      yuksekLisans,
+      terapiEgtim,
+      uzmanAlan,
+      summery,
+      therapyTypes: checkedTherapyType,
+      therapyPlaces: checkedTherapyPlace,
+      therapyUnvans: checkedTherapyUnvan,
+    };
+
+    if (!initialData) {
+      try {
+        const res = await axios.post("/api/ekib", data);
+        if (res.status == 200) {
+          toast.success("Therapy Added Successfully");
+          router.push("/ekib");
+        }
+      } catch (err) {
+        console.log(err);
+        toast.error("something went wrong");
+      }
+    }
+
+    else {
+      try {
+        const res = await axios.patch(`/api/ekib/${initialData.id}`, data);
+        if (res.status == 200) {
+          toast.success("Therapy Updated Successfully");
+          router.push("/ekib");
+        }
+      } catch (err) {
+        console.log(err);
+        toast.error("something went wrong");
+      }
+    }
   };
 
   return (
@@ -131,48 +183,56 @@ const TherapyForm = ({
             type="text"
             name="name"
             required
-            defaultValue={data?.name}
-            placeholder="Terapinin adi"
+            defaultValue={initialData?.name}
+            placeholder="Terapinin adi (Required)"
           />
           <textarea
             className="bg-slate-50 p-4 text-center h-24"
             name="egitim"
-            defaultValue={data?.egitim??''}
-            placeholder="Eğitim  "
+            defaultValue={initialData?.egitim ?? ""}
+            placeholder="Eğitim"
           />
           <textarea
             className="bg-slate-50 p-4 text-center h-24"
-            name="Lisans"
-            defaultValue={data?.Lisans??''}
-            placeholder="Lisans  "
+            name="lisans"
+            defaultValue={initialData?.lisans ?? ""}
+            placeholder="Lisans"
           />
           <textarea
             className="bg-slate-50 p-4 text-center h-24"
-            name="YuksekLisans"
-            defaultValue={data?.YuksekLisans??''}
-            placeholder="YuksekLisans  "
+            name="yuksekLisans"
+            defaultValue={initialData?.yuksekLisans ?? ""}
+            placeholder="Yuksek Lisans"
           />
           <textarea
             className="bg-slate-50 p-4 text-center h-24"
-            name="TerapiEgtim"
-            defaultValue={data?.TerapiEgtim??''}
-            placeholder="TerapiEgtim  "
+            name="terapiEgtim"
+            defaultValue={initialData?.terapiEgtim ?? ""}
+            placeholder="Terapi Eğitim  "
           />
 
           <input
             className="bg-slate-50 h-10 p-4 text-center"
             type="text"
-            name="UzmanAlan"
-            defaultValue={data?.UzmanAlan??''}
-            placeholder="UzmanAlan"
+            name="uzmanAlan"
+            defaultValue={initialData?.uzmanAlan ?? ""}
+            placeholder="Uzman Alanı"
           />
           {/* ............/ */}
           <div className="flex flex-col gap-4 items-center md:flex-row md:gap-10 md:justify-center">
             <DropdownMenu>
-              <DropdownMenuTrigger>Tür seç</DropdownMenuTrigger>
-              <DropdownMenuContent>
+              <DropdownMenuTrigger className="flex gap-3">
+                <p>Tür seç </p>
+
+                {checkedTherapyTypeValidation ? (
+                  <p className="text-red-600">Required</p>
+                ) : (
+                  <></>
+                )}
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="space-y-3">
                 {therapyType.map((type, i) => (
-                  <div key={type.id} className="flex items-center space-x-2">
+                  <div key={type.id} className="flex items-center gap-5">
                     <input
                       type="checkbox"
                       id={type.id}
@@ -183,7 +243,6 @@ const TherapyForm = ({
                         (therapy) => therapy.id === type.id
                       )}
                     />
-
                     <label
                       htmlFor={type.id}
                       className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -196,10 +255,18 @@ const TherapyForm = ({
             </DropdownMenu>
 
             <DropdownMenu>
-              <DropdownMenuTrigger>Yer seç</DropdownMenuTrigger>
-              <DropdownMenuContent>
+              <DropdownMenuTrigger className="flex gap-3">
+                <p>Yer seç</p>
+
+                {checkedTherapyPlaceValidation ? (
+                  <p className="text-red-600">Required</p>
+                ) : (
+                  <></>
+                )}
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="space-y-3">
                 {therapyPlace.map((type, i) => (
-                  <div key={type.id} className="flex items-center space-x-2">
+                  <div key={type.id} className="flex items-center gap-5">
                     <input
                       type="checkbox"
                       id={type.id}
@@ -223,10 +290,18 @@ const TherapyForm = ({
             </DropdownMenu>
 
             <DropdownMenu>
-              <DropdownMenuTrigger>Unvan seç</DropdownMenuTrigger>
-              <DropdownMenuContent>
+              <DropdownMenuTrigger className="flex gap-3">
+                <p>Unvan seç</p>
+
+                {checkedTherapyUnvanValidation ? (
+                  <p className="text-red-600">Required</p>
+                ) : (
+                  <></>
+                )}
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="space-y-3">
                 {TherapyUnvans.map((type, i) => (
-                  <div key={type.id} className="flex items-center space-x-2">
+                  <div key={type.id} className="flex items-center gap-5">
                     <input
                       type="checkbox"
                       id={type.id}
@@ -252,13 +327,14 @@ const TherapyForm = ({
 
           <textarea
             className="bg-slate-50 p-4 text-center h-24"
-            name="summary"
-            defaultValue={data?.Summery}
-            placeholder="Özet"
+            name="summery"
+            defaultValue={initialData?.summery}
+            placeholder="Özet (Required)"
+            required
           />
 
+          <div>{/* {image component} */}</div>
 
-          {/*             //////// */}
           <div className="w-4/6 flex justify-start mx-auto">
             <SubmitButton />
           </div>

@@ -18,17 +18,17 @@ model Therapy {
   name         String
 
   egitim        String?
-  Lisans        String?
-  YuksekLisans  String?
-  TerapiEgtim   String?
-  UzmanAlan         String?
+  lisans        String?
+  yuksekLisans  String?
+  terapiEgtim   String?
+  uzmanAlan         String?
   
-  Summery       String
-  imageUrl      String
+  summery       String
+  imageUrl      String @default("https://res.cloudinary.com/ddxser4ml/image/upload/txwk370nwk6kg6hxluxn.jpg")
 
   therapyTypes  TherapyTypeTherapy[] // cocuk  // category
-  TherapyPlaces TherapyPlaceTherapy[] 
-  TherapyUnvans TherapyUnvanTherapy[]
+  therapyPlaces TherapyPlaceTherapy[] 
+  therapyUnvans TherapyUnvanTherapy[]
 }
 
 model TherapyType {

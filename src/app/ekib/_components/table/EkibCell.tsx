@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { useState } from "react";
-import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
+import { Copy, Edit, MoreHorizontal, Trash, Upload } from "lucide-react";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
@@ -64,7 +64,12 @@ export const EkibCell: React.FC<EkibCellProps> = ({ data }) => {
           <DropdownMenuItem
             onClick={() => router.push(`/ekib/${data.id}`)}
           >
-            <Edit className="mr-2 h-4 w-4" /> Update
+            <Edit className="mr-2 h-4 w-4" /> Update Data
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => router.push(`/ekib/${data.id}/image`)}
+          >
+            <Upload className="mr-2 h-4 w-4" /> Upload Image
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setOpen(true)}>
             <Trash className="mr-2 h-4 w-4" /> Delete
