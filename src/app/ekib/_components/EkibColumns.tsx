@@ -52,7 +52,7 @@ const EkibClient = ({ data }: Props) => {
       {" "}
       <div className="flex items-center justify-between">
         <Heading title={`Ekibiniz yönetin (${data.length})`} description=" " />
-        <Button onClick={() => router.push(`/therapy/create`)}>
+        <Button onClick={() => router.push(`/ekib/create`)}>
           <Plus className="mr-2 h-4 w-4" />
         </Button>
       </div>

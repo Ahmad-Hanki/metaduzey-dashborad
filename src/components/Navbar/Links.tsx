@@ -36,6 +36,11 @@ const Links = () => {
       href: "/ekib",
       active: pathname.includes("/ekib"),
     },
+    {
+      name: "Blog",
+      href: "/blog",
+      active: pathname.includes("/blog"),
+    },
   ];
 
   return (
