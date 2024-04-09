@@ -37,7 +37,7 @@ const Links = () => {
       active: pathname.includes("/ekib"),
     },
     {
-      name: "Blog",
+      name: "Blogs",
       href: "/blog",
       active: pathname.includes("/blog"),
     },
