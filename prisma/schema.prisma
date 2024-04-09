@@ -82,13 +82,13 @@ model Blog {
 
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
-  BlogCategors BlogCategory[]
+  blogCategories BlogCategory[]
 }
 
 model Category {
   id           String         @id @default(uuid())
   name         String
-  BlogCategors BlogCategory[]
+  blogCategories BlogCategory[]
 }
 
 model BlogCategory {

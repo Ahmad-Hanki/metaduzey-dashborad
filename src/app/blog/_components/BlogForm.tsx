@@ -53,7 +53,7 @@ const BlogForm = ({ category, initialData, prevImages }: BlogFormProps) => {
   };
 
   const onAction = async (formData: FormData) => {
-    const ImageUrl = formData.get("image");
+    const imageUrl = formData.get("image");
     const title = formData.get("title");
     const summery = formData.get("summery");
     const yazar = formData.get("yazar");
@@ -62,7 +62,7 @@ const BlogForm = ({ category, initialData, prevImages }: BlogFormProps) => {
       setCheckedCategoryValidation(true);
       return null;
     }
-    if (ImageUrl == "") {
+    if (imageUrl == "") {
       setImageValidation(true);
       return null;
     }
@@ -72,14 +72,23 @@ const BlogForm = ({ category, initialData, prevImages }: BlogFormProps) => {
     }
 
     const data = {
-      ImageUrl,
+      imageUrl,
       title,
       summery,
       yazar,
-      checkedCategory,
+      blogCategories: checkedCategory,
     };
 
-    console.log(data);
+    try {
+      const res = await axios.post("/api/blog", data);
+      if (res.status == 200) {
+        toast.success("Blog Added Successfully");
+        router.push("/blog");
+      }
+    } catch (err) {
+      toast.error("Something went wrong");
+      console.log(err);
+    }
   };
 
   return (
