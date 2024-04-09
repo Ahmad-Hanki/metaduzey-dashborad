@@ -1,6 +1,5 @@
 import {
   LogoutLink,
-  getKindeServerSession,
 } from "@kinde-oss/kinde-auth-nextjs/server";
 import Container from "../Container";
 import Image from "next/image";
@@ -10,8 +9,7 @@ import Links from "./Links";
 import Link from "next/link";
 
 const Navbar = async () => {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+
 
   return (
     <div className="bg-slate-200 p-5">

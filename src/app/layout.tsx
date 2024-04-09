@@ -16,7 +16,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html className="bg-slate-200" lang="en">
+    <html className="bg-white" lang="en">
       <body className={inter.className}>
         <Toaster position="top-center" reverseOrder={false} />
         <Navbar />

@@ -40,7 +40,7 @@ const Links = () => {
 
   return (
     <>
-      <div className="xl:flex gap-3 hidden">
+      <div className="sm:flex gap-3 hidden">
         {Links.map((link) => (
           <Link
             className={cn(
@@ -55,7 +55,7 @@ const Links = () => {
         ))}
       </div>
 
-      <div className="block xl:hidden">
+      <div className="block sm:hidden">
         <DropdownMenu>
           <DropdownMenuTrigger>
             <Menu size={20} />

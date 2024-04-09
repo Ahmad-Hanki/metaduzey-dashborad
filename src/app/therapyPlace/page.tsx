@@ -1,26 +1,20 @@
 import Container from "@/components/Container";
-import Link from "next/link";
-import { DataTable } from "./_components/table/DataTable";
-import { columns } from "./_components/table/therapyTypeColumns";
 import prisma from "@/db/client";
+import PlaceClient from "./_components/PlaceClient"; 
 
-const TherapyPlacePage = async () => {
+const TherapyTypePage = async () => {
   const data = await prisma.therapyPlace.findMany({});
-
   return (
     <div>
       <Container>
-        <div className="flex flex-col items-center gap-5">
-          <div className="w-full flex justify-end">
-            <Link className="btn" href={"/therapyPlace/create"}>
-              Create
-            </Link>
+        <div className="flex flex-col ">
+          <div className="flex-1 space-y-4 p-8 pt-6">
+            <PlaceClient data={data} />
           </div>
-          <DataTable columns={columns} data={data} />
         </div>
       </Container>
     </div>
   );
 };
 
-export default TherapyPlacePage;
+export default TherapyTypePage;

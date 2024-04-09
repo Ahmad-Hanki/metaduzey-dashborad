@@ -1,14 +1,13 @@
 import Container from "@/components/Container";
-import Link from "next/link";
-import { DataTable } from "./_components/table/DataTable";
-import { columns } from "./_components/table/EkibColumn";
 import prisma from "@/db/client";
+import EkibClient from "./_components/EkibColumns";
 
 const TherapyPage = async () => {
   const data = await prisma.therapy.findMany({
     select: {
       id: true,
       name: true,
+      imageUrl:true,
       therapyPlaces: {
         // Include the TherapyPlaces relation
         select: {
@@ -41,23 +40,14 @@ const TherapyPage = async () => {
     },
   });
 
-  const formedData = data.map((item) => ({
-    id: item.id,
-    name: item.name,
-    therapyPlace: item.therapyPlaces.map((tp) => tp.therapyPlace.name),
-    therapyType: item.therapyTypes.map((tp) => tp.therapyType.name),
-    therapyUnvan: item.therapyUnvans.map((tp) => tp.therapyUnvan.name),
-  }));
+ 
   return (
     <div>
       <Container>
-        <div className="flex flex-col items-center gap-5">
-          <div className="w-full flex justify-end">
-            <Link className="btn" href={"/ekib/create"}>
-              Create
-            </Link>
+        <div className="flex flex-col ">
+          <div className="flex-1 space-y-4 p-8 pt-6">
+            <EkibClient data={data} />
           </div>
-          <DataTable columns={columns} data={formedData} />
         </div>
       </Container>
     </div>

@@ -14,20 +14,20 @@ datasource db {
 }
 
 model Therapy {
-  id           String @id @default(uuid())
-  name         String
+  id   String @id @default(uuid())
+  name String
 
-  egitim        String?
-  lisans        String?
-  yuksekLisans  String?
-  terapiEgtim   String?
-  uzmanAlan         String?
-  
-  summery       String
-  imageUrl      String @default("https://res.cloudinary.com/ddxser4ml/image/upload/txwk370nwk6kg6hxluxn.jpg")
+  egitim       String?
+  lisans       String?
+  yuksekLisans String?
+  terapiEgtim  String?
+  uzmanAlan    String?
+
+  summery  String
+  imageUrl String @default("https://res.cloudinary.com/ddxser4ml/image/upload/txwk370nwk6kg6hxluxn.jpg")
 
   therapyTypes  TherapyTypeTherapy[] // cocuk  // category
-  therapyPlaces TherapyPlaceTherapy[] 
+  therapyPlaces TherapyPlaceTherapy[]
   therapyUnvans TherapyUnvanTherapy[]
 }
 
@@ -71,4 +71,30 @@ model TherapyUnvanTherapy {
   therapyId      String
   therapyUnvan   TherapyUnvan @relation(fields: [therapyUnvanId], references: [id], onDelete: Cascade)
   therapyUnvanId String
+}
+
+model Blog {
+  id       String @id @default(uuid())
+  title    String
+  summery  String
+  yazan    String
+  imageUrl String
+
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  BlogCategors BlogCategory[]
+}
+
+model Category {
+  id           String         @id @default(uuid())
+  name         String
+  BlogCategors BlogCategory[]
+}
+
+model BlogCategory {
+  id         String   @id @default(uuid())
+  blog       Blog     @relation(fields: [blogId], references: [id], onDelete: Cascade)
+  blogId     String
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId String
 }

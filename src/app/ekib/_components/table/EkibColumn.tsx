@@ -2,10 +2,12 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { EkibCell } from "./EkibCell";
+import Image from "next/image";
 
 export type EkibColumnProps = {
   id: string;
   name: string;
+  imageUrl: string;
   therapyPlace: string[];
   therapyType: string[];
   therapyUnvan: string[];
@@ -49,6 +51,18 @@ export const columns: ColumnDef<EkibColumnProps>[] = [
         {row.original.therapyUnvan?.map((place, index) => (
           <span key={index}>{place}</span>
         ))}
+      </div>
+    ),
+  },
+
+  {
+    accessorKey: "imageUrl", // Adding imageUrl to the columns definition
+    header: "Resim", // Assuming Resim URL means "Image URL" in Turkish
+    cell: ({ row }) => (
+      <div className="flex flex-col items-center">
+        <div className="overflow-hidden aspect-square w-10 relative rounded-full">
+          <Image src={row.original.imageUrl} alt="photo" fill />
+        </div>
       </div>
     ),
   },
