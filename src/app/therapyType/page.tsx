@@ -3,7 +3,11 @@ import prisma from "@/db/client";
 import TypeClient from "./_components/TypeClient"; 
 
 const TherapyTypePage = async () => {
+  try {
+
+  
   const data = await prisma.therapyType.findMany({});
+  await prisma.$disconnect();
   return (
     <div>
       <Container>
@@ -15,6 +19,11 @@ const TherapyTypePage = async () => {
       </Container>
     </div>
   );
+} catch(err) {
+
+} finally {
+  await prisma.$disconnect();
+}
 };
 
 export default TherapyTypePage;

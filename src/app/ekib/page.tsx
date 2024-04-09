@@ -3,6 +3,9 @@ import prisma from "@/db/client";
 import EkibClient from "./_components/EkibColumns";
 
 const TherapyPage = async () => {
+  try {
+
+  
   const data = await prisma.therapy.findMany({
     select: {
       id: true,
@@ -40,7 +43,8 @@ const TherapyPage = async () => {
     },
   });
 
- 
+  await prisma.$disconnect();
+
   return (
     <div>
       <Container>
@@ -52,6 +56,11 @@ const TherapyPage = async () => {
       </Container>
     </div>
   );
+} catch(err) {
+  
+} finally {
+  await prisma.$disconnect();
+}
 };
 
 export default TherapyPage;

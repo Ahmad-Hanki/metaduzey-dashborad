@@ -1,5 +1,5 @@
 import prisma from "@/db/client";
-import TherapyUnvanForm from "../_components/TherapyUnvanForm"; 
+import TherapyUnvanForm from "../_components/TherapyUnvanForm";
 import { redirect } from "next/navigation";
 
 interface EditTherapyUnvanPageProps {
@@ -9,18 +9,24 @@ interface EditTherapyUnvanPageProps {
 }
 
 const EditTherapyUnvanPage = async ({ params }: EditTherapyUnvanPageProps) => {
-  const data = await prisma.therapyUnvan.findFirst({
-    where: {
-      id: params.id,
-    },
-  });
+  try {
+    const data = await prisma.therapyUnvan.findFirst({
+      where: {
+        id: params.id,
+      },
+    });
+    await prisma.$disconnect();
 
-  if (!data) redirect("/therapyUnvan");
-  return (
-    <div>
-      <TherapyUnvanForm data={data} />
-    </div>
-  );
+    if (!data) redirect("/therapyUnvan");
+    return (
+      <div>
+        <TherapyUnvanForm data={data} />
+      </div>
+    );
+  } catch (err) {
+  } finally {
+    await prisma.$disconnect();
+  }
 };
 
 export default EditTherapyUnvanPage;

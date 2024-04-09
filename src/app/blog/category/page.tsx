@@ -3,7 +3,11 @@ import prisma from "@/db/client";
 import CategoryClient from "./_components/CategoryClient";
 
 const CategoryPage = async () => {
+  try {
+
+
   const data = await prisma.category.findMany({});
+  await prisma.$disconnect();
   return (
     <div>
       <Container>
@@ -15,6 +19,11 @@ const CategoryPage = async () => {
       </Container>
     </div>
   );
+  } catch (err) {
+
+  } finally{
+    await prisma.$disconnect();
+  }
 };
 
 export default CategoryPage;

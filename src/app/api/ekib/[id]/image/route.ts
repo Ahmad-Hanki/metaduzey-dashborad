@@ -41,4 +41,7 @@ export async function PATCH(req:Request,{params}:ImageProps) {
         return NextResponse.json({ message: "Something went wrong" }, { status: 500 });
 
     }
+    finally{
+        await prisma.$disconnect();
+    }
 }

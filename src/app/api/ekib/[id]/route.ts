@@ -46,12 +46,18 @@ export async function PATCH(req: Request, { params }: TherapyTypeProps) {
     await prisma.therapyTypeTherapy.deleteMany({
       where: { therapyId: params.id },
     });
+    await prisma.$disconnect();
+
     await prisma.therapyPlaceTherapy.deleteMany({
       where: { therapyId: params.id },
     });
+    await prisma.$disconnect();
+
     await prisma.therapyUnvanTherapy.deleteMany({
       where: { therapyId: params.id },
     });
+    await prisma.$disconnect();
+
 
     const createdTherapy = await prisma.therapy.update({
       where: {
@@ -93,10 +99,13 @@ export async function PATCH(req: Request, { params }: TherapyTypeProps) {
         therapyUnvans: true,
       },
     });
+    await prisma.$disconnect();
 
     return NextResponse.json({}, { status: 200 });
   } catch (err) {
     return NextResponse.json({ message: err }, { status: 500 });
+  } finally{
+    await prisma.$disconnect();
   }
 }
 
@@ -118,5 +127,7 @@ export async function DELETE(req: Request, { params }: TherapyTypeProps) {
     return NextResponse.json({}, { status: 200 });
   } catch (err) {
     return NextResponse.json({ message: err }, { status: 500 });
+  } finally{
+    await prisma.$disconnect();
   }
 }

@@ -10,6 +10,9 @@ interface UploadImagePageProps {
 }
 
 const UploadImagePage = async ({ params }: UploadImagePageProps) => {
+  try {
+
+  
   const data = await prisma.therapy.findFirst({
     where: {
       id: params.id,
@@ -19,6 +22,7 @@ const UploadImagePage = async ({ params }: UploadImagePageProps) => {
       name: true,
     },
   });
+  await prisma.$disconnect();
 
   if (!data) redirect("/ekib");
 
@@ -27,6 +31,8 @@ const UploadImagePage = async ({ params }: UploadImagePageProps) => {
       imageUrl: true,
     },
   });
+  await prisma.$disconnect();
+
   return (
     <div>
       <Container>
@@ -39,6 +45,11 @@ const UploadImagePage = async ({ params }: UploadImagePageProps) => {
       </Container>
     </div>
   );
+} catch (err) {
+
+} finally {
+  await prisma.$disconnect();
+}
 };
 
 export default UploadImagePage;

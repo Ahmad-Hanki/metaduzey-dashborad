@@ -1,20 +1,27 @@
 import Container from "@/components/Container";
 import prisma from "@/db/client";
-import PlaceClient from "./_components/PlaceClient"; 
+import PlaceClient from "./_components/PlaceClient";
 
 const TherapyTypePage = async () => {
-  const data = await prisma.therapyPlace.findMany({});
-  return (
-    <div>
-      <Container>
-        <div className="flex flex-col ">
-          <div className="flex-1 space-y-4 p-8 pt-6">
-            <PlaceClient data={data} />
+  try {
+    const data = await prisma.therapyPlace.findMany({});
+    await prisma.$disconnect();
+
+    return (
+      <div>
+        <Container>
+          <div className="flex flex-col ">
+            <div className="flex-1 space-y-4 p-8 pt-6">
+              <PlaceClient data={data} />
+            </div>
           </div>
-        </div>
-      </Container>
-    </div>
-  );
+        </Container>
+      </div>
+    );
+  } catch (err) {
+  } finally {
+    await prisma.$disconnect();
+  }
 };
 
 export default TherapyTypePage;

@@ -31,12 +31,15 @@ export const POST = async (req:Request) => {
                   },
             }
         })
+
         return NextResponse.json({  }, { status: 200 });
 
     } catch( err) {
         console.log(err);
         return NextResponse.json({ message: "SomeThing went wrong" }, { status: 500 });
 
+    } finally{
+      await prisma.$disconnect();
     }
   
 }

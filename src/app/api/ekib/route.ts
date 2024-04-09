@@ -75,6 +75,8 @@ export async function POST(req: Request) {
         therapyUnvans: true,
       },
     });
+    await prisma.$disconnect();
+
     return NextResponse.json({}, { status: 200 });
   } catch (err) {
     console.log(err);
@@ -82,5 +84,7 @@ export async function POST(req: Request) {
       { error: "Something Went Wrong" },
       { status: 500 }
     );
+  } finally{
+    await prisma.$disconnect();
   }
 }

@@ -1,6 +1,6 @@
 import CategoryForm from "../_components/CategoryForm"
 
-const page = () => {
+const CategoryCreatePage = () => {
   return (
     <div>
         <CategoryForm/>
@@ -8,4 +8,4 @@ const page = () => {
   )
 }
 
-export default page
+export default CategoryCreatePage
