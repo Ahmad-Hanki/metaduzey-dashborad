@@ -230,7 +230,7 @@ const TherapyForm = ({
                   <></>
                 )}
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="space-y-3">
+              <DropdownMenuContent className="space-y-3 p-4">
                 {therapyType.map((type, i) => (
                   <div key={type.id} className="flex items-center gap-5">
                     <input
@@ -264,7 +264,7 @@ const TherapyForm = ({
                   <></>
                 )}
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="space-y-3">
+              <DropdownMenuContent className="space-y-3 p-4">
                 {therapyPlace.map((type, i) => (
                   <div key={type.id} className="flex items-center gap-5">
                     <input
@@ -299,7 +299,7 @@ const TherapyForm = ({
                   <></>
                 )}
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="space-y-3">
+              <DropdownMenuContent className="space-y-3 p-4">
                 {TherapyUnvans.map((type, i) => (
                   <div key={type.id} className="flex items-center gap-5">
                     <input
@@ -332,8 +332,6 @@ const TherapyForm = ({
             placeholder="Özet (Required)"
             required
           />
-
-          <div>{/* {image component} */}</div>
 
           <div className="w-4/6 flex justify-start mx-auto">
             <SubmitButton />
