@@ -88,3 +88,38 @@ export async function POST(req: Request) {
     await prisma.$disconnect();
   }
 }
+
+
+export async function GET(req: Request) {
+  try {
+    const therapy = await prisma.therapy.findMany({
+      include: {
+        therapyPlaces:{
+          select:{
+            therapyPlace:true
+          }
+        },
+        therapyTypes:{
+          select:{
+            therapyType:true
+          }
+        },
+        therapyUnvans:{
+          select:{
+            therapyUnvan:true
+          }
+        }
+      }
+    }) 
+    return NextResponse.json(therapy, { status: 200 });
+
+  } catch (err) {
+    console.log(err);
+    return NextResponse.json(
+      { error: "Something Went Wrong" },
+      { status: 500 }
+    );
+  } finally{
+    prisma.$disconnect();
+  }
+}
