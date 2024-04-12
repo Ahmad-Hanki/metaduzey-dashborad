@@ -48,6 +48,7 @@ export async function DELETE(req: Request, { params }: TherapyUnvanProps) {
   if (!auth) {
     return NextResponse.json({ message: "Not Authenticated" }, { status: 401 });
   }
+  await prisma.$disconnect();
 
   try {
     await prisma.therapyUnvan.delete({

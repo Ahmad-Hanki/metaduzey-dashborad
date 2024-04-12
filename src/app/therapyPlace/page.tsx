@@ -4,6 +4,8 @@ import PlaceClient from "./_components/PlaceClient";
 
 const TherapyTypePage = async () => {
   try {
+    await prisma.$disconnect();
+
     const data = await prisma.therapyPlace.findMany({});
     await prisma.$disconnect();
 

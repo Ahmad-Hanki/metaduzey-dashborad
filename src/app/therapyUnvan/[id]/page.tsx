@@ -10,6 +10,8 @@ interface EditTherapyUnvanPageProps {
 
 const EditTherapyUnvanPage = async ({ params }: EditTherapyUnvanPageProps) => {
   try {
+    await prisma.$disconnect();
+
     const data = await prisma.therapyUnvan.findFirst({
       where: {
         id: params.id,

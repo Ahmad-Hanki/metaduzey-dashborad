@@ -15,13 +15,13 @@ datasource db {
 
 model Therapy {
   id   String @id @default(uuid())
-  name String @db.VarChar(100)
+  name String
 
-  egitim       String? @db.VarChar(100)
-  lisans       String? @db.VarChar(100)
-  yuksekLisans String? @db.VarChar(100)
-  terapiEgtim  String? @db.VarChar(100)
-  uzmanAlan    String? @db.VarChar(100)
+  egitim       String?
+  lisans       String?
+  yuksekLisans String?
+  terapiEgtim  String?
+  uzmanAlan    String?
 
   summery  String @db.VarChar(2000)
   imageUrl String @default("https://res.cloudinary.com/ddxser4ml/image/upload/txwk370nwk6kg6hxluxn.jpg") @db.VarChar(5000)
@@ -33,7 +33,7 @@ model Therapy {
 
 model TherapyType {
   id        String               @id @default(uuid())
-  name      String @db.VarChar(100)
+  name      String
   therapies TherapyTypeTherapy[]
 }
 
@@ -47,7 +47,7 @@ model TherapyTypeTherapy {
 
 model TherapyPlace {
   id        String                @id @default(uuid())
-  name      String @db.VarChar(100)
+  name      String
   therapies TherapyPlaceTherapy[]
 }
 
@@ -61,7 +61,7 @@ model TherapyPlaceTherapy {
 
 model TherapyUnvan {
   id        String                @id @default(uuid())
-  name      String @db.VarChar(100)
+  name      String
   therapies TherapyUnvanTherapy[]
 }
 
@@ -75,9 +75,9 @@ model TherapyUnvanTherapy {
 
 model Blog {
   id       String @id @default(uuid())
-  title    String @db.VarChar(100)
+  title    String
   summery  String @db.VarChar(10000)
-  yazan    String @db.VarChar(100)
+  yazan    String
   imageUrl String @db.VarChar(5000)
 
   createdAt    DateTime       @default(now())
@@ -87,7 +87,7 @@ model Blog {
 
 model Category {
   id           String         @id @default(uuid())
-  name         String @db.VarChar(100)
+  name         String
   blogCategories BlogCategory[]
 }
 

@@ -5,6 +5,7 @@ import prisma from "@/db/client";
 const BlogsPage = async () => {
   try {
 
+    await prisma.$disconnect();
 
   const blogs = await prisma.blog.findMany({
     orderBy: {

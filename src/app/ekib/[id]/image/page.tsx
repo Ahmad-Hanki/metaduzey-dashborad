@@ -19,7 +19,8 @@ const UploadImagePage = async ({ params }: UploadImagePageProps) => {
     const imageUrls: { imageUrl: string }[] = files.map(file => ({
       imageUrl: `https://utfs.io/f/${file.key}` // Assuming file.key represents the path to the image
     }));
-  
+    await prisma.$disconnect();
+
     const data = await prisma.therapy.findFirst({
       where: {
         id: params.id,

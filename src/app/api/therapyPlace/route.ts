@@ -16,6 +16,7 @@ export async function POST(req: Request) {
   if (!name || name == "") {
     return NextResponse.json({ message: "Invalid Data" }, { status: 400 });
   }
+  await prisma.$disconnect();
 
   try {
     await prisma.therapyPlace.create({

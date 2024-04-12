@@ -19,6 +19,8 @@ export const POST = async (req:Request) => {
     }
 
     try {
+      await prisma.$disconnect();
+
         await prisma.blog.create({
             data: {
                 imageUrl, summery, title, yazan:yazar,
@@ -31,6 +33,7 @@ export const POST = async (req:Request) => {
                   },
             }
         })
+        await prisma.$disconnect();
 
         return NextResponse.json({  }, { status: 200 });
 
@@ -46,6 +49,8 @@ export const POST = async (req:Request) => {
 
 
 export async function GET(req: Request) {
+  await prisma.$disconnect();
+
   try {
     const blog = await prisma.blog.findMany({
       include: {
@@ -56,6 +61,8 @@ export async function GET(req: Request) {
         }
       }
     }) 
+    await prisma.$disconnect();
+
     
     return NextResponse.json(blog, { status: 200 });
 
@@ -66,6 +73,6 @@ export async function GET(req: Request) {
       { status: 500 }
     );
   } finally{
-    prisma.$disconnect();
+    await prisma.$disconnect();
   }
 }

@@ -3,6 +3,7 @@ import TherapyForm from "../_components/TherapyForm";
 ("../_components/TherapyForm");
 const TherapyCreatePage = async () => {
   try {
+    await prisma.$disconnect();
 
   
   const therapyTypes = await prisma.therapyType.findMany({});

@@ -11,7 +11,8 @@ interface  EditTherapyTypePageProps {
 const EditTherapyTypePage = async ({params}:EditTherapyTypePageProps) => {
   try {
 
-  
+    await prisma.$disconnect();
+
     const data = await prisma.therapyPlace.findFirst({
         where: {
             id: params.id

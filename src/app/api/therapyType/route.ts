@@ -16,6 +16,7 @@ export async function POST(req: Request) {
   if (!name || name == "") {
     return NextResponse.json({ message: "Invalid Data" }, { status: 400 });
   }
+  await prisma.$disconnect();
 
   try {
     await prisma.therapyType.create({
@@ -36,7 +37,11 @@ export async function POST(req: Request) {
 
 export async function GET(req: Request) {
    try {
+    await prisma.$disconnect();
+
     const types = await prisma.therapyType.findMany();
+    prisma.$disconnect();
+
     return NextResponse.json(types, { status: 200 });
 
    }catch (err) {

@@ -10,6 +10,8 @@ interface EditTCategoryPageProps {
 
 const EditCategoryPage = async ({ params }: EditTCategoryPageProps) => {
   try {
+    await prisma.$disconnect();
+
     const data = await prisma.category.findFirst({
       where: {
         id: params.id,

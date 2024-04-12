@@ -41,6 +41,7 @@ export async function PATCH(req: Request, { params }: TherapyTypeProps) {
   ) {
     return NextResponse.json({ message: "Invalid Data" }, { status: 400 });
   }
+  await prisma.$disconnect();
 
   try {
     await prisma.therapyTypeTherapy.deleteMany({
@@ -116,6 +117,7 @@ export async function DELETE(req: Request, { params }: TherapyTypeProps) {
   if (!auth) {
     return NextResponse.json({ message: "Not Authenticated" }, { status: 401 });
   }
+  await prisma.$disconnect();
 
   try {
     await prisma.therapy.delete({
@@ -123,6 +125,7 @@ export async function DELETE(req: Request, { params }: TherapyTypeProps) {
         id: params.id,
       },
     });
+    await prisma.$disconnect();
 
     return NextResponse.json({}, { status: 200 });
   } catch (err) {
@@ -135,6 +138,8 @@ export async function DELETE(req: Request, { params }: TherapyTypeProps) {
 
 export async function GET(req: Request, { params }: TherapyTypeProps) {
   try {
+    await prisma.$disconnect();
+
     const therapy = await prisma.therapy.findFirst({
       where:{
         id:params.id
@@ -157,6 +162,8 @@ export async function GET(req: Request, { params }: TherapyTypeProps) {
         }
       }
     })
+    await prisma.$disconnect();
+
 
     if (!therapy)    return NextResponse.json(
       { error: "No data was found." },
@@ -172,6 +179,6 @@ export async function GET(req: Request, { params }: TherapyTypeProps) {
       { status: 500 }
     );
   } finally{
-    prisma.$disconnect();
+    await prisma.$disconnect();
   }
 }

@@ -65,6 +65,7 @@ export async function DELETE(req: Request, { params }: TherapyTypeProps) {
   if (!auth) {
     return NextResponse.json({ message: "Not Authenticated" }, { status: 401 });
   }
+  await prisma.$disconnect();
 
   try {
     await prisma.blog.delete({
@@ -86,6 +87,8 @@ export async function DELETE(req: Request, { params }: TherapyTypeProps) {
 
 export async function GET(req: Request, { params }: TherapyTypeProps) {
   try {
+    await prisma.$disconnect();
+
     const blog = await prisma.blog.findFirst({
       where:{
         id:params.id
@@ -98,6 +101,8 @@ export async function GET(req: Request, { params }: TherapyTypeProps) {
        }
       }
     })
+    await prisma.$disconnect();
+
 
     if (!blog)    return NextResponse.json(
       { error: "No data was found." },
@@ -113,6 +118,6 @@ export async function GET(req: Request, { params }: TherapyTypeProps) {
       { status: 500 }
     );
   } finally{
-    prisma.$disconnect();
+    await prisma.$disconnect();
   }
 }

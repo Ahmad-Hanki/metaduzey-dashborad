@@ -16,6 +16,7 @@ export async function POST(req: Request) {
   if (!name || name == "") {
     return NextResponse.json({ message: "Invalid Data" }, { status: 400 });
   }
+  await prisma.$disconnect();
 
   try {
     await prisma.category.create({
@@ -23,6 +24,7 @@ export async function POST(req: Request) {
         name,
       },
     });
+    await prisma.$disconnect();
 
     return NextResponse.json({}, { status: 200 });
   } catch (err) {
@@ -34,14 +36,18 @@ export async function POST(req: Request) {
 
 export async function GET(req: Request) {
   try {
+    await prisma.$disconnect();
+
    const categories = await prisma.category.findMany();
+   await prisma.$disconnect();
+
    return NextResponse.json(categories, { status: 200 });
 
   }catch (err) {
    return NextResponse.json({message:'No Data Found!'}, { status: 404 });
 
   } finally{ 
-   prisma.$disconnect();
+    await prisma.$disconnect();
   }
 } 
 

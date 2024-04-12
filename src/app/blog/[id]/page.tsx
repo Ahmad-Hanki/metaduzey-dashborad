@@ -9,6 +9,8 @@ interface BlogIdPageProps {
 }
 
 const EditBlog = async ({ params }: BlogIdPageProps) => {
+  await prisma.$disconnect();
+
   try {
   const blog = await prisma.blog.findFirst({
     where: {
@@ -16,6 +18,7 @@ const EditBlog = async ({ params }: BlogIdPageProps) => {
     },
   });
   await prisma.$disconnect();
+
   if (!blog) redirect("/blog");
 
   const blogs = await prisma.blog.findMany({
@@ -25,8 +28,10 @@ const EditBlog = async ({ params }: BlogIdPageProps) => {
     },
   });
   await prisma.$disconnect();
+
   const category = await prisma.category.findMany({});
   await prisma.$disconnect();
+
   return (
     <div>
       <BlogForm category={category} prevImages={blogs} initialData={blog} />

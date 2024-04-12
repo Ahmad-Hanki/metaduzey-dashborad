@@ -5,7 +5,8 @@ import TypeClient from "./_components/TypeClient";
 const TherapyTypePage = async () => {
   try {
 
-  
+    await prisma.$disconnect();
+
   const data = await prisma.therapyType.findMany({});
   await prisma.$disconnect();
   return (

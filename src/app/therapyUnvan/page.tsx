@@ -4,6 +4,8 @@ import UnvanClient from "./_components/UnvanClient";
 
 const TherapyTypePage = async () => {
   try {
+    await prisma.$disconnect();
+
     const data = await prisma.therapyUnvan.findMany({});
     await prisma.$disconnect();
     return (

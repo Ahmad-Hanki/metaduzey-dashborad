@@ -4,6 +4,7 @@ import EkibClient from "./_components/EkibColumns";
 
 const TherapyPage = async () => {
   try {
+    await prisma.$disconnect();
 
   
   const data = await prisma.therapy.findMany({

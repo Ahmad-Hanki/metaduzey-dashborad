@@ -4,7 +4,8 @@ import BlogForm from "../_components/BlogForm";
 const CreateBlog = async () => {
   try {
 
-  
+    await prisma.$disconnect();
+
   const blogs = await prisma.blog.findMany({
     orderBy: { createdAt: "desc" },
     select: {
