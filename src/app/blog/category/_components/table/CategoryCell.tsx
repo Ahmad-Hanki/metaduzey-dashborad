@@ -31,7 +31,7 @@ export const CategoryCell: React.FC<CategoryCellProps> = ({ data }) => {
       toast.success("Deleted Successfully");
       router.refresh();
     } catch (error) {
-      toast.error("Something went wrong.");
+      toast.error("Delete the blogs that are using this category.");
     } finally {
       setOpen(false);
     }

@@ -60,7 +60,7 @@ const EkibClient = ({ data }: Props) => {
       <DataTable columns={columns} data={formedData} />
       <Heading title="API" description="API calls for Therapy" />
       <Separator />
-      <ApiList entityName="therapy" entityIdName="id" />
+      <ApiList entityName="ekib" entityIdName="id" />
     </>
   );
 };

@@ -1,6 +1,7 @@
 "use client";
 import ImagesSwiper from "@/app/ekib/[id]/image/_components/ImagesSwiper";
 import SubmitButton from "@/components/SubmitButton";
+import { cn } from "@/lib/utils";
 import { UploadButton } from "@/utils/uploadthing";
 import { Trash } from "lucide-react";
 import Image from "next/image";
@@ -10,9 +11,10 @@ import toast from "react-hot-toast";
 interface UploadImageProps {
   prevImages?: { imageUrl: string }[];
   currentImage?: string;
+  blog?:boolean
 }
 
-const UploadImage = ({ prevImages, currentImage }: UploadImageProps) => {
+const UploadImage = ({ prevImages, currentImage, blog }: UploadImageProps) => {
   const [imageUrl, setImageUrl] = useState(currentImage?? '');
   return (
     <div className="flex flex-col gap-20">
@@ -24,7 +26,7 @@ const UploadImage = ({ prevImages, currentImage }: UploadImageProps) => {
             <Image
               alt="photo"
               fill
-              className="object-cover object-center rounded-full"
+              className={cn("object-cover object-center rounded-full", blog? 'rounded-md' :'')}
               src={imageUrl}
             />
             <Trash

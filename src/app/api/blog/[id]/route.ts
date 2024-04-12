@@ -82,3 +82,37 @@ export async function DELETE(req: Request, { params }: TherapyTypeProps) {
     await prisma.$disconnect();
   }
 }
+
+
+export async function GET(req: Request, { params }: TherapyTypeProps) {
+  try {
+    const blog = await prisma.blog.findFirst({
+      where:{
+        id:params.id
+      },
+      include: {
+       blogCategories:{
+        select:{
+          category:true
+        }
+       }
+      }
+    })
+
+    if (!blog)    return NextResponse.json(
+      { error: "No data was found." },
+      { status: 404 }
+    );
+    
+    return NextResponse.json(blog, { status: 200 });
+
+  } catch (err) {
+    console.log(err);
+    return NextResponse.json(
+      { error: "Something Went Wrong" },
+      { status: 500 }
+    );
+  } finally{
+    prisma.$disconnect();
+  }
+}

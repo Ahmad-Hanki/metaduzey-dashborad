@@ -18,6 +18,7 @@ import UploadImage from "./UploadImage";
 interface BlogFormProps {
   initialData?: Blog;
   category: Category[];
+  blog?:boolean
   prevImages: { imageUrl: string }[];
 }
 
@@ -26,7 +27,7 @@ interface CheckedCategory {
   name: string;
 }
 
-const BlogForm = ({ category, initialData, prevImages }: BlogFormProps) => {
+const BlogForm = ({ category, initialData, prevImages, blog }: BlogFormProps) => {
   const [checkedCategory, setCheckedCategory] = useState<CheckedCategory[]>([]);
 
   const [checkedCategoryValidation, setCheckedCategoryValidation] =
@@ -162,6 +163,7 @@ const BlogForm = ({ category, initialData, prevImages }: BlogFormProps) => {
               <p className="text-red-600 text-center">Image is Required</p>
             )}
             <UploadImage
+            blog = {blog}
               prevImages={prevImages}
               currentImage={initialData?.imageUrl}
             />

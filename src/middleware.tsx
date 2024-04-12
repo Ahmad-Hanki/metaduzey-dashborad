@@ -4,5 +4,5 @@ export default function middleware(req:NextApiRequest) {
     return withAuth(req);
 }
 export const config = {
-    matcher: ["/admin", '/','/admin']
+    matcher: ["/admin", '/']
 };

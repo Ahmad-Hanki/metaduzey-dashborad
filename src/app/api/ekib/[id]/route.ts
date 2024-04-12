@@ -131,3 +131,47 @@ export async function DELETE(req: Request, { params }: TherapyTypeProps) {
     await prisma.$disconnect();
   }
 }
+
+
+export async function GET(req: Request, { params }: TherapyTypeProps) {
+  try {
+    const therapy = await prisma.therapy.findFirst({
+      where:{
+        id:params.id
+      },
+      include: {
+        therapyPlaces:{
+          select:{
+            therapyPlace:true
+          }
+        },
+        therapyTypes:{
+          select:{
+            therapyType:true
+          }
+        },
+        therapyUnvans:{
+          select:{
+            therapyUnvan:true
+          }
+        }
+      }
+    })
+
+    if (!therapy)    return NextResponse.json(
+      { error: "No data was found." },
+      { status: 404 }
+    );
+    
+    return NextResponse.json(therapy, { status: 200 });
+
+  } catch (err) {
+    console.log(err);
+    return NextResponse.json(
+      { error: "Something Went Wrong" },
+      { status: 500 }
+    );
+  } finally{
+    prisma.$disconnect();
+  }
+}

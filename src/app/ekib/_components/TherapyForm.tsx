@@ -156,7 +156,7 @@ const TherapyForm = ({
         }
       } catch (err) {
         console.log(err);
-        toast.error("something went wrong");
+        toast.error("Summery or any other data might be to long.");
       }
     }
 
@@ -169,7 +169,7 @@ const TherapyForm = ({
         }
       } catch (err) {
         console.log(err);
-        toast.error("something went wrong");
+        toast.error("Summery or any other data might be to long.");
       }
     }
   };

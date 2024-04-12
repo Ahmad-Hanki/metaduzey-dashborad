@@ -51,7 +51,7 @@ const UploadImage = ({ userImage, userName, prevImages }: UploadImageProps) => {
             }}
           />
 
-          <input value={imageUrl} id="image" name="image" type="text" hidden />
+          <input readOnly value={imageUrl} id="image" name="image" type="text" hidden />
 
           <SubmitButton submit="Save Changes" submitting="Saving..." />
         </div>

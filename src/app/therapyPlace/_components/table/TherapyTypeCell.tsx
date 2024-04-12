@@ -21,6 +21,8 @@ interface TherapyPlaceCellProps {
   data: TherapyColumnsPlace;
 }
 
+
+
 export const TherapyPlaceCell: React.FC<TherapyPlaceCellProps> = ({ data }) => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -31,7 +33,7 @@ export const TherapyPlaceCell: React.FC<TherapyPlaceCellProps> = ({ data }) => {
       toast.success("Deleted Successfully");
       router.refresh();
     } catch (error) {
-      toast.error("Something went wrong.");
+      toast.error("Make sure to delete all the therapies that are connected to this Place");
     } finally {
       setOpen(false);
     }

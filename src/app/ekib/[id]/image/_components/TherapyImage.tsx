@@ -33,7 +33,7 @@ const TherapyImage = ({ id, userImage, name, Images }: TherapyImageProps) => {
     <div className="flex flex-col ">
       <div className="flex-1">
         <form action={onSubmit}>
-          <UploadImage userImage={userImage} userName={name} prevImages={Images} />
+          <UploadImage userImage={userImage} userName={name} prevImages={Images}/>
         </form>
       </div>
     </div>

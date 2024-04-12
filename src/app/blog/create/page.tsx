@@ -16,7 +16,7 @@ const CreateBlog = async () => {
   await prisma.$disconnect();
   return (
     <div>
-      <BlogForm category={category} prevImages={blogs}/>
+      <BlogForm category={category} prevImages={blogs} blog={true}/>
     </div>
   );
 } catch (err) {

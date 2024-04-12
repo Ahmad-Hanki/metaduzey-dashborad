@@ -15,16 +15,16 @@ datasource db {
 
 model Therapy {
   id   String @id @default(uuid())
-  name String
+  name String @db.VarChar(100)
 
-  egitim       String?
-  lisans       String?
-  yuksekLisans String?
-  terapiEgtim  String?
-  uzmanAlan    String?
+  egitim       String? @db.VarChar(100)
+  lisans       String? @db.VarChar(100)
+  yuksekLisans String? @db.VarChar(100)
+  terapiEgtim  String? @db.VarChar(100)
+  uzmanAlan    String? @db.VarChar(100)
 
-  summery  String
-  imageUrl String @default("https://res.cloudinary.com/ddxser4ml/image/upload/txwk370nwk6kg6hxluxn.jpg")
+  summery  String @db.VarChar(2000)
+  imageUrl String @default("https://res.cloudinary.com/ddxser4ml/image/upload/txwk370nwk6kg6hxluxn.jpg") @db.VarChar(5000)
 
   therapyTypes  TherapyTypeTherapy[] // cocuk  // category
   therapyPlaces TherapyPlaceTherapy[]
@@ -33,21 +33,21 @@ model Therapy {
 
 model TherapyType {
   id        String               @id @default(uuid())
-  name      String
+  name      String @db.VarChar(100)
   therapies TherapyTypeTherapy[]
 }
 
 model TherapyTypeTherapy {
   id            String      @id @default(uuid())
   therapy       Therapy     @relation(fields: [therapyId], references: [id], onDelete: Cascade)
-  therapyId     String
-  therapyType   TherapyType @relation(fields: [therapyTypeId], references: [id], onDelete: Cascade)
+  therapyId     String 
+  therapyType   TherapyType @relation(fields: [therapyTypeId], references: [id])
   therapyTypeId String
 }
 
 model TherapyPlace {
   id        String                @id @default(uuid())
-  name      String
+  name      String @db.VarChar(100)
   therapies TherapyPlaceTherapy[]
 }
 
@@ -55,13 +55,13 @@ model TherapyPlaceTherapy {
   id             String       @id @default(uuid())
   therapy        Therapy      @relation(fields: [therapyId], references: [id], onDelete: Cascade)
   therapyId      String
-  therapyPlace   TherapyPlace @relation(fields: [therapyPlaceId], references: [id], onDelete: Cascade)
+  therapyPlace   TherapyPlace @relation(fields: [therapyPlaceId], references: [id])
   therapyPlaceId String
 }
 
 model TherapyUnvan {
   id        String                @id @default(uuid())
-  name      String
+  name      String @db.VarChar(100)
   therapies TherapyUnvanTherapy[]
 }
 
@@ -69,16 +69,16 @@ model TherapyUnvanTherapy {
   id             String       @id @default(uuid())
   therapy        Therapy      @relation(fields: [therapyId], references: [id], onDelete: Cascade)
   therapyId      String
-  therapyUnvan   TherapyUnvan @relation(fields: [therapyUnvanId], references: [id], onDelete: Cascade)
+  therapyUnvan   TherapyUnvan @relation(fields: [therapyUnvanId], references: [id])
   therapyUnvanId String
 }
 
 model Blog {
   id       String @id @default(uuid())
-  title    String
-  summery  String
-  yazan    String
-  imageUrl String
+  title    String @db.VarChar(100)
+  summery  String @db.VarChar(10000)
+  yazan    String @db.VarChar(100)
+  imageUrl String @db.VarChar(5000)
 
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
@@ -87,13 +87,13 @@ model Blog {
 
 model Category {
   id           String         @id @default(uuid())
-  name         String
+  name         String @db.VarChar(100)
   blogCategories BlogCategory[]
 }
 
 model BlogCategory {
   id         String   @id @default(uuid())
-  blog       Blog     @relation(fields: [blogId], references: [id], onDelete: Cascade)
+  blog       Blog     @relation(fields: [blogId], references: [id])
   blogId     String
   category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId String

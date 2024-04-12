@@ -32,5 +32,18 @@ export async function POST(req: Request) {
   }
 }
 
+export async function GET(req: Request) {
+  try {
+   const categories = await prisma.category.findMany();
+   return NextResponse.json(categories, { status: 200 });
+
+  }catch (err) {
+   return NextResponse.json({message:'No Data Found!'}, { status: 404 });
+
+  } finally{ 
+   prisma.$disconnect();
+  }
+} 
+
 
 

@@ -31,7 +31,7 @@ export const TherapyTypeCell: React.FC<TherapyTypeCellProps> = ({ data }) => {
       toast.success("Deleted Successfully");
       router.refresh();
     } catch (error) {
-      toast.error("Something went wrong.");
+      toast.error("Make sure to delete all the therapies that are connected to this Type");
     } finally {
       setOpen(false);
     }

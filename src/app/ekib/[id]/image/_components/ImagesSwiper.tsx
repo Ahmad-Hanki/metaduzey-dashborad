@@ -5,6 +5,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import "swiper/css";
+import { Trash } from "lucide-react";
+import { deletePhoto } from "@/actions/deletePhoto";
 
 interface ImagesSwiperProps {
   prevImages: { imageUrl: string }[];

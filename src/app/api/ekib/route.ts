@@ -111,6 +111,7 @@ export async function GET(req: Request) {
         }
       }
     }) 
+    
     return NextResponse.json(therapy, { status: 200 });
 
   } catch (err) {

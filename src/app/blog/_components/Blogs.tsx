@@ -69,7 +69,7 @@ const Blogs = ({ blogs }: BlogsProps) => {
                 />
               </div>
               <div className="flex flex-col items-center p-2 gap-3">
-                <h1 className="text-2xl font-bold"> {blog.title}</h1>
+                <h1 className="text-2xl font-bold text-center"> {blog.title}</h1>
                 <p>{formatDate(blog.createdAt)}</p>
                 <div>
                   {/* Map through blogCategories and render category names */}

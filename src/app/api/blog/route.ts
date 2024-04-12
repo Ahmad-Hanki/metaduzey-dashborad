@@ -43,3 +43,29 @@ export const POST = async (req:Request) => {
     }
   
 }
+
+
+export async function GET(req: Request) {
+  try {
+    const blog = await prisma.blog.findMany({
+      include: {
+        blogCategories:{
+          select:{
+            category:true
+          }
+        }
+      }
+    }) 
+    
+    return NextResponse.json(blog, { status: 200 });
+
+  } catch (err) {
+    console.log(err);
+    return NextResponse.json(
+      { error: "Something Went Wrong" },
+      { status: 500 }
+    );
+  } finally{
+    prisma.$disconnect();
+  }
+}
