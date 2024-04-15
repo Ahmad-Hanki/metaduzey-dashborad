@@ -72,7 +72,6 @@ const Blogs = ({ blogs }: BlogsProps) => {
                 <h1 className="text-2xl font-bold text-center"> {blog.title}</h1>
                 <p>{formatDate(blog.createdAt)}</p>
                 <div>
-                  {/* Map through blogCategories and render category names */}
                   {blog.blogCategories.map((category, index) => (
                     <span key={index} className="text-sm text-gray-600">
                       {category.category.name}

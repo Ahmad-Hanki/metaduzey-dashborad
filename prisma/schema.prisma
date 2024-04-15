@@ -29,6 +29,7 @@ model Therapy {
   therapyTypes  TherapyTypeTherapy[] // cocuk  // category
   therapyPlaces TherapyPlaceTherapy[]
   therapyUnvans TherapyUnvanTherapy[]
+  Appointments   Appointment[]
 }
 
 model TherapyType {
@@ -40,7 +41,7 @@ model TherapyType {
 model TherapyTypeTherapy {
   id            String      @id @default(uuid())
   therapy       Therapy     @relation(fields: [therapyId], references: [id], onDelete: Cascade)
-  therapyId     String 
+  therapyId     String
   therapyType   TherapyType @relation(fields: [therapyTypeId], references: [id])
   therapyTypeId String
 }
@@ -80,14 +81,14 @@ model Blog {
   yazan    String
   imageUrl String @db.VarChar(5000)
 
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
   blogCategories BlogCategory[]
 }
 
 model Category {
-  id           String         @id @default(uuid())
-  name         String
+  id             String         @id @default(uuid())
+  name           String
   blogCategories BlogCategory[]
 }
 
@@ -95,6 +96,26 @@ model BlogCategory {
   id         String   @id @default(uuid())
   blog       Blog     @relation(fields: [blogId], references: [id])
   blogId     String
-  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  category   Category @relation(fields: [categoryId], references: [id])
   categoryId String
 }
+
+model Appointment {
+  id            String   @id @default(uuid())
+  name          String
+  email         String
+  tel           String
+  destek        String
+  service       String
+  contact       String
+  place         String
+
+  checked Boolean @default(false)
+
+  therapyId     String
+  chosenTherapy Therapy  @relation(fields: [therapyId], references: [id])
+
+  createdAt     DateTime @default(now())
+}
+
+
