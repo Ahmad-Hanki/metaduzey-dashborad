@@ -23,11 +23,13 @@ export async function PATCH(req: Request, { params }: TherapyTypeProps) {
     return NextResponse.json({ message: "Invalid Data" }, { status: 400 });
   }
 
+
   try {
     await prisma.blogCategory.deleteMany({
       where: { blogId: params.id },
     });
-  
+      await prisma.$disconnect()
+
     const editedBlog = await prisma.blog.update({
       where: {
         id: params.id,
@@ -46,12 +48,15 @@ export async function PATCH(req: Request, { params }: TherapyTypeProps) {
         },
       },
     });
-  
+    await prisma.$disconnect()
+
     return NextResponse.json({}, { status: 200 });
   } catch (err) {
     return NextResponse.json({ message: err }, { status: 500 });
   }
   finally{
+    await prisma.$disconnect()
+
     }
 }
 
@@ -69,10 +74,14 @@ export async function DELETE(req: Request, { params }: TherapyTypeProps) {
         id: params.id,
       },
     });
-  
+    await prisma.$disconnect()
+
     return NextResponse.json({}, { status: 200 });
   } catch (err) {
     return NextResponse.json({ message: err }, { status: 500 });
+  } finally{
+    await prisma.$disconnect()
+
   }
   
 }
@@ -93,7 +102,8 @@ export async function GET(req: Request, { params }: TherapyTypeProps) {
        }
       }
     })
-  
+    await prisma.$disconnect()
+
 
     if (!blog)    return NextResponse.json(
       { error: "No data was found." },
@@ -109,5 +119,7 @@ export async function GET(req: Request, { params }: TherapyTypeProps) {
       { status: 500 }
     );
   } finally{
+    await prisma.$disconnect()
+
     }
 }

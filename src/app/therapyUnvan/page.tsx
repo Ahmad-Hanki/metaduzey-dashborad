@@ -3,8 +3,10 @@ import prisma from "@/db/client";
 import UnvanClient from "./_components/UnvanClient";
 
 const TherapyTypePage = async () => {
-
+  try {
     const data = await prisma.therapyUnvan.findMany({});
+    await prisma.$disconnect();
+
     return (
       <div>
         <Container>
@@ -16,7 +18,10 @@ const TherapyTypePage = async () => {
         </Container>
       </div>
     );
-  
+  } catch (err) {
+  } finally {
+    await prisma.$disconnect();
+  }
 };
 
 export default TherapyTypePage;

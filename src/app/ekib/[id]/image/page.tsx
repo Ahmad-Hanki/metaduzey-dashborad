@@ -12,13 +12,12 @@ interface UploadImagePageProps {
 }
 
 const UploadImagePage = async ({ params }: UploadImagePageProps) => {
+  const files: Image[] = await utapi.listFiles();
 
-    const files:Image[] = await utapi.listFiles();
-
-    const imageUrls: { imageUrl: string }[] = files.map(file => ({
-      imageUrl: `https://utfs.io/f/${file.key}` // Assuming file.key represents the path to the image
-    }));
-
+  const imageUrls: { imageUrl: string }[] = files.map((file) => ({
+    imageUrl: `https://utfs.io/f/${file.key}`, // Assuming file.key represents the path to the image
+  }));
+  try {
     const data = await prisma.therapy.findFirst({
       where: {
         id: params.id,
@@ -28,6 +27,7 @@ const UploadImagePage = async ({ params }: UploadImagePageProps) => {
         name: true,
       },
     });
+    await prisma.$disconnect();
 
     if (!data) redirect("/ekib");
 
@@ -43,7 +43,10 @@ const UploadImagePage = async ({ params }: UploadImagePageProps) => {
         </Container>
       </div>
     );
-  
+  } catch (err) {
+  } finally {
+    await prisma.$disconnect();
+  }
 };
 
 export default UploadImagePage;

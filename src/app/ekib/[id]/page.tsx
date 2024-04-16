@@ -9,18 +9,22 @@ interface EditTherapyPageProps {
 }
 
 const EditTherapyPage = async ({ params }: EditTherapyPageProps) => {
-
+  try {
     const data = await prisma.therapy.findFirst({
       where: {
         id: params.id,
       },
     });
+    await prisma.$disconnect();
 
     const therapyTypes = await prisma.therapyType.findMany({});
+    await prisma.$disconnect();
 
     const therapyPlace = await prisma.therapyPlace.findMany({});
+    await prisma.$disconnect();
 
     const therapyUnvan = await prisma.therapyUnvan.findMany({});
+    await prisma.$disconnect();
 
     if (!data) redirect("/therapy");
     return (
@@ -33,7 +37,10 @@ const EditTherapyPage = async ({ params }: EditTherapyPageProps) => {
         />
       </div>
     );
-  
+  } catch (err) {
+  } finally {
+    await prisma.$disconnect();
+  }
 };
 
 export default EditTherapyPage;

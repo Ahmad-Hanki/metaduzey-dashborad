@@ -110,7 +110,6 @@ export async function DELETE(req: Request, { params }: TherapyTypeProps) {
   if (!auth) {
     return NextResponse.json({ message: "Not Authenticated" }, { status: 401 });
   }
-  await prisma.$disconnect();
 
   try {
     await prisma.therapy.delete({
@@ -118,9 +117,13 @@ export async function DELETE(req: Request, { params }: TherapyTypeProps) {
         id: params.id,
       },
     });
+    await prisma.$disconnect()
 
     return NextResponse.json({}, { status: 200 });
   } catch (err) {
     return NextResponse.json({ message: 'something went wrong here' }, { status: 500 });
-  } 
+  } finally{
+    await prisma.$disconnect()
+
+  }
 }

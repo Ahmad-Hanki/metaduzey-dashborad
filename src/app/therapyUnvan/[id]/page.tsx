@@ -9,12 +9,13 @@ interface EditTherapyUnvanPageProps {
 }
 
 const EditTherapyUnvanPage = async ({ params }: EditTherapyUnvanPageProps) => {
-
+  try {
     const data = await prisma.therapyUnvan.findFirst({
       where: {
         id: params.id,
       },
     });
+    await prisma.$disconnect();
 
     if (!data) redirect("/therapyUnvan");
     return (
@@ -22,7 +23,10 @@ const EditTherapyUnvanPage = async ({ params }: EditTherapyUnvanPageProps) => {
         <TherapyUnvanForm data={data} />
       </div>
     );
-  
+  } catch (err) {
+  } finally {
+    await prisma.$disconnect();
+  }
 };
 
 export default EditTherapyUnvanPage;

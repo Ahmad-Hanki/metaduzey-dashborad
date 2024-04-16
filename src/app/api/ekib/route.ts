@@ -75,7 +75,8 @@ export async function POST(req: Request) {
         therapyUnvans: true,
       },
     });
-  
+    await prisma.$disconnect()
+
     return NextResponse.json({}, { status: 200 });
   } catch (err) {
     console.log(err);
@@ -84,6 +85,8 @@ export async function POST(req: Request) {
       { status: 500 }
     );
   } finally{
+    await prisma.$disconnect()
+
     }
 }
 
@@ -109,7 +112,8 @@ export async function GET(req: Request) {
         }
       }
     }) 
-  
+    await prisma.$disconnect()
+
     return NextResponse.json(therapy, { status: 200 });
 
   } catch (err) {
@@ -118,5 +122,8 @@ export async function GET(req: Request) {
       { error: "Something Went Wrong..." },
       { status: 500 }
     );
-  } 
+  } finally{
+    await prisma.$disconnect()
+
+  }
 }

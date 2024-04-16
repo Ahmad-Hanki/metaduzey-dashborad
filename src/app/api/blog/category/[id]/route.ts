@@ -31,10 +31,14 @@ export async function PATCH(req: Request, { params }: TherapyTypeProps) {
         name,
       },
     });
-  
+    await prisma.$disconnect()
+
     return NextResponse.json({}, { status: 200 });
   } catch (err) {
     return NextResponse.json({ message: err }, { status: 500 });
+  } finally{
+    await prisma.$disconnect()
+
   }
 }
 

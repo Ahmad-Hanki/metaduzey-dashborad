@@ -62,7 +62,6 @@ export const POST = async (req: Request) => {
 
   try {
 
-
     await prisma.appointment.create({
       data: {
         name,
@@ -75,6 +74,8 @@ export const POST = async (req: Request) => {
         therapyId: therapy,
       },
     });
+    await prisma.$disconnect()
+
     return NextResponse.json({}, { status: 200 });
   } catch (err) {
     console.log(err);
@@ -82,5 +83,7 @@ export const POST = async (req: Request) => {
       { message: "Something went wrong" },
       { status: 500 }
     );
+  } finally {
+    await prisma.$disconnect()
   }
 };

@@ -4,7 +4,7 @@ import AppointmentClient from "./_components/AppointmentClient";
 
 const Appointment = async () => {
 
-
+try {
     const data = await prisma.appointment.findMany({
       orderBy: {
         createdAt: 'desc'
@@ -17,7 +17,8 @@ const Appointment = async () => {
         }
       }
     });
-
+    await prisma.$disconnect()
+  
     const formattedData = data.map(appointment => ({
       therapyName: appointment.chosenTherapy.name,
       name: appointment.name,
@@ -45,7 +46,12 @@ const Appointment = async () => {
         </Container>
       </div>
     );
- 
+  } catch(err) {
+
+  } finally{
+    await prisma.$disconnect()
+
+  }
 };
 
 export default Appointment;
