@@ -3,10 +3,8 @@ import BlogClient from "./_components/BlogClient";
 import prisma from "@/db/client";
 
 const BlogsPage = async () => {
-  try {
 
-    await prisma.$disconnect();
-
+  
   const blogs = await prisma.blog.findMany({
     orderBy: {
       createdAt: "desc",
@@ -25,7 +23,6 @@ const BlogsPage = async () => {
     
   });
 
-  await prisma.$disconnect();
 
   return (
     <div>
@@ -39,11 +36,7 @@ const BlogsPage = async () => {
       </Container>
     </div>
   );
-  } catch(err) {
-
-  } finally {
-    await prisma.$disconnect();
-  }
+  
 };
 
 export default BlogsPage;

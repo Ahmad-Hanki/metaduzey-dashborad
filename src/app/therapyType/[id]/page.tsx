@@ -9,15 +9,12 @@ interface EditTherapyTypePageProps {
 }
 
 const EditTherapyTypePage = async ({ params }: EditTherapyTypePageProps) => {
-  try {
-    await prisma.$disconnect();
 
     const data = await prisma.therapyType.findFirst({
       where: {
         id: params.id,
       },
     });
-    await prisma.$disconnect();
 
     if (!data) redirect("/therapyType");
     return (
@@ -25,10 +22,7 @@ const EditTherapyTypePage = async ({ params }: EditTherapyTypePageProps) => {
         <TherapyTypeForm data={data} />
       </div>
     );
-  } catch (err) {
-  } finally {
-    await prisma.$disconnect();
-  }
+  
 };
 
 export default EditTherapyTypePage;

@@ -21,7 +21,6 @@ export async function PATCH(req: Request, { params }: TherapyTypeProps) {
   if (!name || name == "") {
     return NextResponse.json({ message: "Invalid Data" }, { status: 400 });
   }
-  await prisma.$disconnect();
 
   try {
     await prisma.category.update({
@@ -32,8 +31,7 @@ export async function PATCH(req: Request, { params }: TherapyTypeProps) {
         name,
       },
     });
-    await prisma.$disconnect();
-
+  
     return NextResponse.json({}, { status: 200 });
   } catch (err) {
     return NextResponse.json({ message: err }, { status: 500 });
@@ -54,14 +52,11 @@ export async function DELETE(req: Request, { params }: TherapyTypeProps) {
         id: params.id,
       },
     });
-    await prisma.$disconnect();
-
+  
 
     return NextResponse.json({}, { status: 200 });
   } catch (err) {
     return NextResponse.json({ message: err }, { status: 500 });
   }
-  finally {
-    await prisma.$disconnect();
-  }
+  
 }

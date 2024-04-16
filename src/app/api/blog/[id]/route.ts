@@ -27,8 +27,7 @@ export async function PATCH(req: Request, { params }: TherapyTypeProps) {
     await prisma.blogCategory.deleteMany({
       where: { blogId: params.id },
     });
-    await prisma.$disconnect();
-
+  
     const editedBlog = await prisma.blog.update({
       where: {
         id: params.id,
@@ -47,15 +46,13 @@ export async function PATCH(req: Request, { params }: TherapyTypeProps) {
         },
       },
     });
-    await prisma.$disconnect();
-
+  
     return NextResponse.json({}, { status: 200 });
   } catch (err) {
     return NextResponse.json({ message: err }, { status: 500 });
   }
   finally{
-    await prisma.$disconnect();
-  }
+    }
 }
 
 export async function DELETE(req: Request, { params }: TherapyTypeProps) {
@@ -65,7 +62,6 @@ export async function DELETE(req: Request, { params }: TherapyTypeProps) {
   if (!auth) {
     return NextResponse.json({ message: "Not Authenticated" }, { status: 401 });
   }
-  await prisma.$disconnect();
 
   try {
     await prisma.blog.delete({
@@ -73,22 +69,18 @@ export async function DELETE(req: Request, { params }: TherapyTypeProps) {
         id: params.id,
       },
     });
-    await prisma.$disconnect();
-
+  
     return NextResponse.json({}, { status: 200 });
   } catch (err) {
     return NextResponse.json({ message: err }, { status: 500 });
   }
-  finally{
-    await prisma.$disconnect();
-  }
+  
 }
 
 
 export async function GET(req: Request, { params }: TherapyTypeProps) {
   try {
-    await prisma.$disconnect();
-
+  
     const blog = await prisma.blog.findFirst({
       where:{
         id:params.id
@@ -101,8 +93,7 @@ export async function GET(req: Request, { params }: TherapyTypeProps) {
        }
       }
     })
-    await prisma.$disconnect();
-
+  
 
     if (!blog)    return NextResponse.json(
       { error: "No data was found." },
@@ -118,6 +109,5 @@ export async function GET(req: Request, { params }: TherapyTypeProps) {
       { status: 500 }
     );
   } finally{
-    await prisma.$disconnect();
-  }
+    }
 }

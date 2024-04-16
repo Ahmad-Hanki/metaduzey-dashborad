@@ -7,10 +7,11 @@ import toast from "react-hot-toast";
 
 interface ToggleSwitchProps {
   appointmentId: string;
+  checked:boolean
 }
 
-const ToggleSwitch = ({ appointmentId }: ToggleSwitchProps) => {
-  const [isChecked, setIsChecked] = useState(false);
+const ToggleSwitch = ({ appointmentId, checked }: ToggleSwitchProps) => {
+  const [isChecked, setIsChecked] = useState(checked);
 
   const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const checked = event.target.checked;

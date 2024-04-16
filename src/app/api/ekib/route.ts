@@ -35,7 +35,6 @@ export async function POST(req: Request) {
   ) {
     return NextResponse.json({ message: "Invalid Data" }, { status: 400 });
   }
-  await prisma.$disconnect();
 
 
   try {
@@ -76,8 +75,7 @@ export async function POST(req: Request) {
         therapyUnvans: true,
       },
     });
-    await prisma.$disconnect();
-
+  
     return NextResponse.json({}, { status: 200 });
   } catch (err) {
     console.log(err);
@@ -86,15 +84,12 @@ export async function POST(req: Request) {
       { status: 500 }
     );
   } finally{
-    await prisma.$disconnect();
-  }
+    }
 }
 
 
 export async function GET(req: Request) {
   try {
-    await prisma.$disconnect();
-
     const therapy = await prisma.therapy.findMany({
       include: {
         therapyPlaces:{
@@ -114,17 +109,14 @@ export async function GET(req: Request) {
         }
       }
     }) 
-    await prisma.$disconnect();
-
+  
     return NextResponse.json(therapy, { status: 200 });
 
   } catch (err) {
     console.log(err);
     return NextResponse.json(
-      { error: "Something Went Wrong!!!!" },
+      { error: "Something Went Wrong..." },
       { status: 500 }
     );
-  } finally{
-    await prisma.$disconnect();
-  }
+  } 
 }

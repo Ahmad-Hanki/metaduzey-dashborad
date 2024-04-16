@@ -41,24 +41,20 @@ export async function PATCH(req: Request, { params }: TherapyTypeProps) {
   ) {
     return NextResponse.json({ message: "Invalid Data" }, { status: 400 });
   }
-  await prisma.$disconnect();
 
   try {
     await prisma.therapyTypeTherapy.deleteMany({
       where: { therapyId: params.id },
     });
-    await prisma.$disconnect();
+
 
     await prisma.therapyPlaceTherapy.deleteMany({
       where: { therapyId: params.id },
     });
-    await prisma.$disconnect();
 
     await prisma.therapyUnvanTherapy.deleteMany({
       where: { therapyId: params.id },
     });
-    await prisma.$disconnect();
-
 
     const createdTherapy = await prisma.therapy.update({
       where: {
@@ -100,14 +96,11 @@ export async function PATCH(req: Request, { params }: TherapyTypeProps) {
         therapyUnvans: true,
       },
     });
-    await prisma.$disconnect();
 
     return NextResponse.json({}, { status: 200 });
   } catch (err) {
     return NextResponse.json({ message: err }, { status: 500 });
-  } finally{
-    await prisma.$disconnect();
-  }
+  } 
 }
 
 export async function DELETE(req: Request, { params }: TherapyTypeProps) {
@@ -125,60 +118,9 @@ export async function DELETE(req: Request, { params }: TherapyTypeProps) {
         id: params.id,
       },
     });
-    await prisma.$disconnect();
 
     return NextResponse.json({}, { status: 200 });
   } catch (err) {
-    return NextResponse.json({ message: err }, { status: 500 });
-  } finally{
-    await prisma.$disconnect();
-  }
-}
-
-
-export async function GET(req: Request, { params }: TherapyTypeProps) {
-  try {
-    await prisma.$disconnect();
-
-    const therapy = await prisma.therapy.findFirst({
-      where:{
-        id:params.id
-      },
-      include: {
-        therapyPlaces:{
-          select:{
-            therapyPlace:true
-          }
-        },
-        therapyTypes:{
-          select:{
-            therapyType:true
-          }
-        },
-        therapyUnvans:{
-          select:{
-            therapyUnvan:true
-          }
-        }
-      }
-    })
-    await prisma.$disconnect();
-
-
-    if (!therapy)    return NextResponse.json(
-      { error: "No data was found." },
-      { status: 404 }
-    );
-    
-    return NextResponse.json(therapy, { status: 200 });
-
-  } catch (err) {
-    console.log(err);
-    return NextResponse.json(
-      { error: "Something Went Wrong" },
-      { status: 500 }
-    );
-  } finally{
-    await prisma.$disconnect();
-  }
+    return NextResponse.json({ message: 'something went wrong here' }, { status: 500 });
+  } 
 }

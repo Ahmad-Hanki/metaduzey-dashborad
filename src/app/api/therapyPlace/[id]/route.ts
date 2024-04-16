@@ -21,7 +21,6 @@ export async function PATCH(req: Request, { params }: TherapyPlaceProps) {
   if (!name || name == "") {
     return NextResponse.json({ message: "Invalid Data" }, { status: 400 });
   }
-  await prisma.$disconnect();
 
   try {
     await prisma.therapyPlace.update({
@@ -32,14 +31,11 @@ export async function PATCH(req: Request, { params }: TherapyPlaceProps) {
         name,
       },
     });
-    await prisma.$disconnect();
 
     return NextResponse.json({}, { status: 200 });
   } catch (err) {
     return NextResponse.json({ message: err }, { status: 500 });
-  } finally{
-    await prisma.$disconnect();
-  }
+  } 
 }
 
 export async function DELETE(req: Request, { params }: TherapyPlaceProps) {
@@ -49,7 +45,6 @@ export async function DELETE(req: Request, { params }: TherapyPlaceProps) {
   if (!auth) {
     return NextResponse.json({ message: "Not Authenticated" }, { status: 401 });
   }
-  await prisma.$disconnect();
 
   try {
     await prisma.therapyPlace.delete({
@@ -57,13 +52,10 @@ export async function DELETE(req: Request, { params }: TherapyPlaceProps) {
         id: params.id,
       },
     });
-    await prisma.$disconnect();
 
 
     return NextResponse.json({}, { status: 200 });
   } catch (err) {
     return NextResponse.json({ message: err }, { status: 500 });
-  } finally{
-    await prisma.$disconnect();
-  }
+  } 
 }

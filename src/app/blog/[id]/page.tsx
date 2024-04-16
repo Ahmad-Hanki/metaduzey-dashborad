@@ -9,15 +9,15 @@ interface BlogIdPageProps {
 }
 
 const EditBlog = async ({ params }: BlogIdPageProps) => {
-  await prisma.$disconnect();
+  
 
-  try {
+  
   const blog = await prisma.blog.findFirst({
     where: {
       id: params.id,
     },
   });
-  await prisma.$disconnect();
+  
 
   if (!blog) redirect("/blog");
 
@@ -27,10 +27,10 @@ const EditBlog = async ({ params }: BlogIdPageProps) => {
       imageUrl: true,
     },
   });
-  await prisma.$disconnect();
+  
 
   const category = await prisma.category.findMany({});
-  await prisma.$disconnect();
+  
 
   return (
     <div>
@@ -38,11 +38,7 @@ const EditBlog = async ({ params }: BlogIdPageProps) => {
     </div>
   );
 }
-catch (err) {
 
-} finally {
-  await prisma.$disconnect();
-}
-};
+
 
 export default EditBlog;

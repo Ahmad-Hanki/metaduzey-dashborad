@@ -19,7 +19,6 @@ export const POST = async (req:Request) => {
     }
 
     try {
-      await prisma.$disconnect();
 
         await prisma.blog.create({
             data: {
@@ -33,23 +32,19 @@ export const POST = async (req:Request) => {
                   },
             }
         })
-        await prisma.$disconnect();
-
+  
         return NextResponse.json({  }, { status: 200 });
 
     } catch( err) {
         console.log(err);
         return NextResponse.json({ message: "SomeThing went wrong" }, { status: 500 });
 
-    } finally{
-      await prisma.$disconnect();
-    }
+    } 
   
 }
 
 
 export async function GET(req: Request) {
-  await prisma.$disconnect();
 
   try {
     const blog = await prisma.blog.findMany({
@@ -61,7 +56,6 @@ export async function GET(req: Request) {
         }
       }
     }) 
-    await prisma.$disconnect();
 
     
     return NextResponse.json(blog, { status: 200 });
@@ -72,7 +66,5 @@ export async function GET(req: Request) {
       { error: "Something Went Wrong" },
       { status: 500 }
     );
-  } finally{
-    await prisma.$disconnect();
   }
 }

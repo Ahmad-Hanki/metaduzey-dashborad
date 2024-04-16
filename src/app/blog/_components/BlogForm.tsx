@@ -87,7 +87,7 @@ const BlogForm = ({ category, initialData, prevImages, blog }: BlogFormProps) =>
         router.push("/blog");
       }
     } catch (err) {
-      toast.error("Something went wrong");
+      toast.error("Something went wrong, try less then 10000 character in the summery");
       console.log(err);
     }
   };

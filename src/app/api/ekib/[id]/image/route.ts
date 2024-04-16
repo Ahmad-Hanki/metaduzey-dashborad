@@ -23,7 +23,6 @@ export async function PATCH(req:Request,{params}:ImageProps) {
     if (!image) {
         return NextResponse.json({ message: "Invalid Data" }, { status: 401 });
     }
-    await prisma.$disconnect();
 
     try {
         await prisma.therapy.update({
@@ -34,8 +33,7 @@ export async function PATCH(req:Request,{params}:ImageProps) {
                 imageUrl:image
             }
         })
-        await prisma.$disconnect();
-
+    
 
         return NextResponse.json({ }, { status: 200 });
 
@@ -44,7 +42,5 @@ export async function PATCH(req:Request,{params}:ImageProps) {
         return NextResponse.json({ message: "Something went wrong" }, { status: 500 });
 
     }
-    finally{
-        await prisma.$disconnect();
-    }
+    
 }
