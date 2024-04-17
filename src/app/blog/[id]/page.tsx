@@ -1,6 +1,7 @@
 import prisma from "@/db/client";
 import BlogForm from "../_components/BlogForm";
 import { redirect } from "next/navigation";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 interface BlogIdPageProps {
   params: {
@@ -9,7 +10,8 @@ interface BlogIdPageProps {
 }
 
 const EditBlog = async ({ params }: BlogIdPageProps) => {
-  
+  const { isAuthenticated } = getKindeServerSession();
+  if (!(await isAuthenticated())) redirect("/api/auth/logout");
 
   try{
   const blog = await prisma.blog.findFirst({

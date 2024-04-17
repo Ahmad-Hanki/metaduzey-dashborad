@@ -1,8 +1,12 @@
 import Container from "@/components/Container";
 import prisma from "@/db/client";
 import EkibClient from "./_components/EkibColumns";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { redirect } from "next/navigation";
 
 const TherapyPage = async () => {
+  const { isAuthenticated } = getKindeServerSession();
+  if (!(await isAuthenticated())) redirect("/api/auth/logout");
   try {
     const data = await prisma.therapy.findMany({
       select: {

@@ -1,6 +1,7 @@
 import prisma from "@/db/client";
 import TherapyTypeForm from "../_components/TherapyTypeForm";
 import { redirect } from "next/navigation";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 interface EditTherapyTypePageProps {
   params: {
@@ -9,6 +10,8 @@ interface EditTherapyTypePageProps {
 }
 
 const EditTherapyTypePage = async ({ params }: EditTherapyTypePageProps) => {
+  const { isAuthenticated } = getKindeServerSession();
+  if (!(await isAuthenticated())) redirect("/api/auth/logout");
   try {
     const data = await prisma.therapyType.findFirst({
       where: {

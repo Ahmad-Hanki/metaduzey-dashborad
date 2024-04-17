@@ -1,7 +1,11 @@
 import prisma from "@/db/client";
 import TherapyForm from "../_components/TherapyForm";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { redirect } from "next/navigation";
 ("../_components/TherapyForm");
 const TherapyCreatePage = async () => {
+  const { isAuthenticated } = getKindeServerSession();
+  if (!(await isAuthenticated())) redirect("/api/auth/logout");
   try {
     const therapyTypes = await prisma.therapyType.findMany({});
     await prisma.$disconnect();

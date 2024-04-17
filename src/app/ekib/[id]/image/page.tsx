@@ -4,6 +4,7 @@ import prisma from "@/db/client";
 import { redirect } from "next/navigation";
 import { utapi } from "@/server/uploadthing";
 import { Image } from "@/types";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 interface UploadImagePageProps {
   params: {
@@ -12,6 +13,8 @@ interface UploadImagePageProps {
 }
 
 const UploadImagePage = async ({ params }: UploadImagePageProps) => {
+  const { isAuthenticated } = getKindeServerSession();
+  if (!(await isAuthenticated())) redirect("/api/auth/logout");
   const files: Image[] = await utapi.listFiles();
 
   const imageUrls: { imageUrl: string }[] = files.map((file) => ({

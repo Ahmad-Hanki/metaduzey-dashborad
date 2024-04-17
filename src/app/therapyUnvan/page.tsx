@@ -1,8 +1,12 @@
 import Container from "@/components/Container";
 import prisma from "@/db/client";
 import UnvanClient from "./_components/UnvanClient";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { redirect } from "next/navigation";
 
 const TherapyTypePage = async () => {
+  const { isAuthenticated } = getKindeServerSession();
+  if (!(await isAuthenticated())) redirect("/api/auth/logout");
   try {
     const data = await prisma.therapyUnvan.findMany({});
     await prisma.$disconnect();

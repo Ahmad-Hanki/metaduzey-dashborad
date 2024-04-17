@@ -1,8 +1,12 @@
 import Container from "@/components/Container";
 import BlogClient from "./_components/BlogClient";
 import prisma from "@/db/client";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { redirect } from "next/navigation";
 
 const BlogsPage = async () => {
+  const { isAuthenticated } = getKindeServerSession();
+  if (!(await isAuthenticated())) redirect("/api/auth/logout");
   try {
     const blogs = await prisma.blog.findMany({
       orderBy: {

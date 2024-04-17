@@ -1,6 +1,7 @@
 import prisma from "@/db/client";
 import TherapyUnvanForm from "../_components/TherapyUnvanForm";
 import { redirect } from "next/navigation";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 interface EditTherapyUnvanPageProps {
   params: {
@@ -9,6 +10,8 @@ interface EditTherapyUnvanPageProps {
 }
 
 const EditTherapyUnvanPage = async ({ params }: EditTherapyUnvanPageProps) => {
+  const { isAuthenticated } = getKindeServerSession();
+  if (!(await isAuthenticated())) redirect("/api/auth/logout");
   try {
     const data = await prisma.therapyUnvan.findFirst({
       where: {
