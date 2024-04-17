@@ -5,17 +5,17 @@ import { Separator } from "@/components/ui/separator";
 import { useRouter } from "next/navigation";
 
 import ApiList from "@/components/api-list";
-import { Appointment } from "@prisma/client";
+import { Contact } from "@prisma/client";
 import { DataTable } from "./table/DataTable";
-import { columns } from "./table/AppointmentColumns";
+import { columns } from "./table/ContactColumns";
 import { DatabaseIcon, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 type Props = {
-  data: (Appointment & { therapyName: string })[];
+  data: Contact[];
 };
 
-const AppointmentClient = ({ data }: Props) => {
+const ContactClient = ({ data }: Props) => {
   const router = useRouter();
   return (
     <>
@@ -28,11 +28,11 @@ const AppointmentClient = ({ data }: Props) => {
       </div>
       <Separator />
       <DataTable columns={columns} data={data} />
-      <Heading title="API" description="API calls for Appointments" />
+      <Heading title="API" description="API calls for Contact" />
       <Separator />
-      <ApiList entityName="appointment" entityIdName="id" />
+      <ApiList entityName="contact" entityIdName="id" />
     </>
   );
 };
 
-export default AppointmentClient;
+export default ContactClient;

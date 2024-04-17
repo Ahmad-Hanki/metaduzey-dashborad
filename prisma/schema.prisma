@@ -119,3 +119,13 @@ model Appointment {
 }
 
 
+model Contact {
+  id String @id @default(uuid())
+  name String
+  phone String
+  email String
+  title String
+  message String
+  helped Boolean @default(false)
+  CreatedAt DateTime @default(now())
+}

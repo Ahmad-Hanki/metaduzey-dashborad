@@ -42,9 +42,14 @@ const Links = () => {
       active: pathname.includes("/blog"),
     },
     {
-      name: "Appointments",
+      name: "Randevular",
       href: "/appointment",
       active: pathname.includes("/appointment"),
+    },
+    {
+      name: "Iletisim",
+      href: "/contact",
+      active: pathname.includes("/contact"),
     },
   ];
 

@@ -42,7 +42,7 @@ const BlogClient = ({ data }: BlogClient) => {
       </div>
       <Separator />
       <Blogs blogs={data} />
-      <Heading title="API" description="API calls for Place" />
+      <Heading title="API" description="API calls for Blogs" />
       <Separator />
       <ApiList entityName="blog" entityIdName="id" />
     </>
