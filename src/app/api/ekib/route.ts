@@ -36,7 +36,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ message: "Invalid Data" }, { status: 400 });
   }
 
-
   try {
     const createdTherapy = await prisma.therapy.create({
       data: {
@@ -75,7 +74,7 @@ export async function POST(req: Request) {
         therapyUnvans: true,
       },
     });
-    await prisma.$disconnect()
+    await prisma.$disconnect();
 
     return NextResponse.json({}, { status: 200 });
   } catch (err) {
@@ -84,46 +83,8 @@ export async function POST(req: Request) {
       { error: "Something Went Wrong" },
       { status: 500 }
     );
-  } finally{
-    await prisma.$disconnect()
-
-    }
-}
-
-
-export async function GET(req: Request) {
-  try {
-    const therapy = await prisma.therapy.findMany({
-      include: {
-        therapyPlaces:{
-          select:{
-            therapyPlace:true
-          }
-        },
-        therapyTypes:{
-          select:{
-            therapyType:true
-          }
-        },
-        therapyUnvans:{
-          select:{
-            therapyUnvan:true
-          }
-        }
-      }
-    }) 
-    await prisma.$disconnect()
-
-    return NextResponse.json(therapy, { status: 200 });
-
-  } catch (err) {
-    console.log(err);
-    return NextResponse.json(
-      { error: "Something Went Wrong..." },
-      { status: 500 }
-    );
-  } finally{
-    await prisma.$disconnect()
-
+  } finally {
+    await prisma.$disconnect();
   }
 }
+
