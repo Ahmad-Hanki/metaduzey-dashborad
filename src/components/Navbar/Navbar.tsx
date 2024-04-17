@@ -1,18 +1,20 @@
+'use client'
 import {
   LogoutLink,
-} from "@kinde-oss/kinde-auth-nextjs/server";
+} from "@kinde-oss/kinde-auth-nextjs/components";
 import Container from "../Container";
 import Image from "next/image";
 import logo from "@/assets/logo.png";
 import { cn } from "@/lib/utils";
 import Links from "./Links";
 import Link from "next/link";
-
+import { usePathname } from "next/navigation";
 const Navbar = async () => {
 
-
+  const path = usePathname();
+  const home = path =='/';
   return (
-    <div className="bg-slate-200 p-5">
+    <div className={cn("bg-slate-200 p-5", home? 'absolute w-full bg-transparent font-extrabold ':'')}>
       <Container>
         <div className="flex justify-between">
             <Link href={'/'}>
